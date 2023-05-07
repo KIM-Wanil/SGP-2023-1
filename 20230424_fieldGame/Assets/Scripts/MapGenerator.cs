@@ -37,6 +37,7 @@ namespace DungeonGeneratorByBinarySpacePartitioning
         private GameObject wall;
         [SerializeField] private GameObject box;
         [SerializeField] private GameObject altar;
+        [SerializeField] private GameObject hideout;
         private int[,] caveMap;
 
         private void Awake()
@@ -51,6 +52,9 @@ namespace DungeonGeneratorByBinarySpacePartitioning
                 }
             }
             wall = Resources.Load<GameObject>("Prefabs/Wall");
+            box = Resources.Load<GameObject>("Prefabs/Box");
+            altar = Resources.Load<GameObject>("Prefabs/Altar");
+            hideout = Resources.Load<GameObject>("Prefabs/Hideout");
             //wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             //wall.transform.localScale = new Vector3(1f, 2f, 1f);
             //wall.GetComponent<Renderer>().material.color = Color.grey;
@@ -144,10 +148,11 @@ namespace DungeonGeneratorByBinarySpacePartitioning
             int y2 = (int)to.y;
 
             int rnd = UnityEngine.Random.Range(0, 4);
+            
             Debug.Log(rnd);
             if (x2 > x1)
             {
-                for (int i = x1 + 1; i <= x2; i++)
+                for (int i = x1; i <= x2; i++)
                 {
                     caveMap[i, y2] = 1;
                 }
@@ -223,6 +228,15 @@ namespace DungeonGeneratorByBinarySpacePartitioning
                     }
                 }
             }
+            if (rnd == 2 || rnd == 3) return;
+            Vector2Int hidePos = new Vector2Int(0, 0);
+            hidePos.x = (x1 + x2) / 2+1;
+            hidePos.y = (y1 + y2) / 2 +1;
+            if (hidePos.x <= 0) hidePos.x = 1;
+            else if (hidePos.x >= mapSize.x - 1) hidePos.x = mapSize.x - 2;
+            if (hidePos.y <= 0) hidePos.y = 1;
+            else if (hidePos.y >= mapSize.y - 1) hidePos.y = mapSize.y - 2;
+            caveMap[hidePos.x, hidePos.y] = 3;
 
         }
 
@@ -239,19 +253,22 @@ namespace DungeonGeneratorByBinarySpacePartitioning
                         caveMap[i, j] = 1;
                     }
                 }
-            GameObject clone_box = Instantiate(box, new Vector3Int((x + x + width) / 2, 0, (y + y + height) / 2), Quaternion.identity) as GameObject;
-            clone_box.transform.parent = transform;
-            int rnd = UnityEngine.Random.Range(0, 3);
+            caveMap[x+width/2, y+height/2] = 2;
+            //GameObject clone_box = Instantiate(box, new Vector3((x + x + width) / 2, 0.5f, (y + y + height) / 2), Quaternion.identity) as GameObject;
+            //clone_box.transform.parent = transform;
+            int rnd = UnityEngine.Random.Range(0, 4);
             if (rnd == 0) caveMap[x + width / 2, y + height - 1] = 0;
             else if (rnd == 1) caveMap[x + width - 1, y + height / 2] = 0;
             else if (rnd == 2) caveMap[x + width / 2, y] = 0;
             else if (rnd == 3) caveMap[x, y + height / 2] = 0;
 
-            int rnd2 = UnityEngine.Random.Range(0, 3);
+            int rnd2 = UnityEngine.Random.Range(0, 4);
             if (rnd2 == 0) caveMap[x + width / 2, y + height - 1] = 0;
             else if (rnd2 == 1) caveMap[x + width - 1, y + height / 2] = 0;
             else if (rnd2 == 2) caveMap[x + width / 2, y] = 0;
             else if (rnd2 == 3) caveMap[x, y + height / 2] = 0;
+
+            
         }
         private void OnDrawAll() //크기에 맞춰 타일을 생성하는 메소드
         {
@@ -267,9 +284,20 @@ namespace DungeonGeneratorByBinarySpacePartitioning
                 {
                     if (caveMap[i, j] == 1)
                     {
-                        GameObject cube = Instantiate(wall, new Vector3Int(i, 0, j), Quaternion.identity) as GameObject;
-                        cube.transform.parent = transform;
+                        GameObject clone_cube = Instantiate(wall, new Vector3(i, 0, j), Quaternion.identity) as GameObject;
+                        clone_cube.transform.parent = transform;
                     }
+                    else if (caveMap[i, j] == 2)
+                    {
+                        GameObject clone_box = Instantiate(box, new Vector3(i, 0.5f, j), Quaternion.identity) as GameObject;
+                        clone_box.transform.parent = transform;
+                    }
+                    else if (caveMap[i, j] == 3)
+                    {
+                        GameObject clone_hideout = Instantiate(hideout, new Vector3(i, 0f, j), Quaternion.identity) as GameObject;
+                        clone_hideout.transform.parent = transform;
+                    }
+                    
                 }
 
         }
