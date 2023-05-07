@@ -16,8 +16,14 @@ public class PlayerControl : MonoBehaviour {
 	// Update is called once per frame
     void Update () 
     {
+        AttachCam();
         Move();
         CamControl();
+    }
+
+    void AttachCam()
+    {
+        FPScam.position = new Vector3(this.transform.position.x, this.transform.position.y+0.3f, this.transform.position.z);
     }
 
     void Move()
@@ -31,6 +37,7 @@ public class PlayerControl : MonoBehaviour {
         if (transform.position.y < 0.0f)
             transform.position = new Vector3(transform.position.x, 0.0f, transform.position.z);
         transform.position += moveDir * Time.deltaTime * speed;
+        FPScam.position += moveDir * Time.deltaTime * speed;
     }
 
     void CamControl()
@@ -38,7 +45,7 @@ public class PlayerControl : MonoBehaviour {
         mouseX += Input.GetAxis("Mouse X");
         mouseY -= Input.GetAxis("Mouse Y");
 
-        mouseY = Mathf.Clamp(mouseY, -30, 30);
+        mouseY = Mathf.Clamp(mouseY, -30, 50);
         FPScam.transform.eulerAngles = new Vector3(mouseY, mouseX, 0);
     }
 
