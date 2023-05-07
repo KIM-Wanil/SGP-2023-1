@@ -50,9 +50,10 @@ namespace DungeonGeneratorByBinarySpacePartitioning
                     else caveMap[i, j] = 0;
                 }
             }
-            wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            wall.transform.localScale = new Vector3(1f, 2f, 1f);
-            wall.GetComponent<Renderer>().material.color = Color.grey;
+            wall = Resources.Load<GameObject>("Prefabs/Wall");
+            //wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            //wall.transform.localScale = new Vector3(1f, 2f, 1f);
+            //wall.GetComponent<Renderer>().material.color = Color.grey;
 
             //OnDrawRectangle(0, 0, mapSize.x, mapSize.y); //던전 사이즈에 맞게 벽을 그림
             TreeNode rootNode = new TreeNode(0, 0, mapSize.x, mapSize.y); //루트가 될 트리 생성
@@ -60,7 +61,6 @@ namespace DungeonGeneratorByBinarySpacePartitioning
             GenerateDungeon(rootNode, 0); //방 생성
             //GenerateRoad(rootNode, 0); //길 연결
             OnDrawAll();
-            Destroy(wall);
         }
 
         private void DivideTree(TreeNode treeNode, int n) //재귀 함수
