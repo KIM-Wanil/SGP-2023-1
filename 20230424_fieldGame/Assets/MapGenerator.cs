@@ -49,7 +49,7 @@ namespace DungeonGeneratorByBinarySpacePartitioning
                 }
             }
             wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            wall.transform.localScale = new Vector3(1f, 2f, 1f);
+            wall.transform.localScale = new Vector3(1f, 5f, 1f);
             wall.GetComponent<Renderer>().material.color = Color.grey;
 
             //OnDrawRectangle(0, 0, mapSize.x, mapSize.y); //던전 사이즈에 맞게 벽을 그림
