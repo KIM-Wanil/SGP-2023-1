@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &705507994
 Light:
   m_ObjectHideFlags: 0
@@ -503,14 +503,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapSize: {x: 50, y: 50}
   maxNode: 4
-  minDivideSize: 0.45
-  maxDivideSize: 0.5
+  minDivideSize: 0.4
+  maxDivideSize: 0.4
   minRoomSize: 0
   line: {fileID: 0}
   lineHolder: {fileID: 0}
   rectangle: {fileID: 0}
-  box: {fileID: 8816049281008986200, guid: 0add3caa737b44c4d9c628e3bbb12b91, type: 3}
-  altar: {fileID: 5301600134328784562, guid: 62b3adaac06507f48a36ea24c542218a, type: 3}
+  box: {fileID: 0}
+  altar: {fileID: 0}
+  hideout: {fileID: 0}
 --- !u!114 &1613481980
 MonoBehaviour:
   m_ObjectHideFlags: 0
