@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3574741010320236300}
   m_Layer: 0
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Hideout
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,9 +107,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3574741010468048372}
+  - component: {fileID: 8738527204366373171}
   m_Layer: 0
   m_Name: Hideout
-  m_TagString: Untagged
+  m_TagString: Hideout
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,3 +131,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8738527204366373171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3574741010468048375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd880437843097b48a812c379b723ce6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
