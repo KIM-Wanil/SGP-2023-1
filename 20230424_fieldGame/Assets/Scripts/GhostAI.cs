@@ -5,11 +5,13 @@ using UnityEngine.AI;
 
 public class GhostAI : MonoBehaviour
 {
+    GameObject player;
     NavMeshAgent nav;
-    public GameObject player;
+
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Player");
         nav = GetComponent<NavMeshAgent>();
     }
 

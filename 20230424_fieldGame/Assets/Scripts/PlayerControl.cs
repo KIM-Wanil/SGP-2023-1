@@ -3,14 +3,20 @@ using System.Collections;
 
 public class PlayerControl : MonoBehaviour {
 
-    public Transform FPScam;
-    float mouseX, mouseY;
+    public GameObject cam;
+    GameObject lantern;
     float speed;
 
 	void Start () 
     {
         Cursor.lockState = CursorLockMode.Locked;
-        speed = 4f;
+
+        cam = Resources.Load<GameObject>("Prefabs/Cam");
+        cam = Instantiate(cam);
+
+        lantern = Resources.Load<GameObject>("Prefabs/Lantern");
+
+        speed = 3f;
 	}
 	
 	// Update is called once per frame
@@ -18,35 +24,31 @@ public class PlayerControl : MonoBehaviour {
     {
         AttachCam();
         Move();
-        CamControl();
+        UseLantern();
     }
 
     void AttachCam()
     {
-        FPScam.position = new Vector3(this.transform.position.x, this.transform.position.y+0.3f, this.transform.position.z);
+        cam.transform.position = new Vector3(this.transform.position.x, this.transform.position.y+2.0f, this.transform.position.z-2f);
+        cam.transform.rotation = Quaternion.Euler(45, 0, 0);
     }
 
     void Move()
     {
-        Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        Vector3 lookForward = new Vector3(FPScam.transform.forward.x, 0, FPScam.transform.forward.z).normalized;
-        Vector3 lookRight = new Vector3(FPScam.transform.right.x, FPScam.transform.forward.y, FPScam.transform.right.z).normalized;
-        Vector3 moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
-
-        transform.forward = lookForward;
-        if (transform.position.y < 0.0f)
-            transform.position = new Vector3(transform.position.x, 0.0f, transform.position.z);
-        transform.position += moveDir * Time.deltaTime * speed;
-        FPScam.position += moveDir * Time.deltaTime * speed;
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+        float rotation_speed = 5f;
+        Vector3 dir = new Vector3(h, 0, v);
+        if (!(h == 0 && v == 0))
+        {
+            this.transform.position += dir * speed * Time.deltaTime;
+            this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotation_speed);
+        }
     }
 
-    void CamControl()
+    void UseLantern()
     {
-        mouseX += Input.GetAxis("Mouse X");
-        mouseY -= Input.GetAxis("Mouse Y");
-
-        mouseY = Mathf.Clamp(mouseY, -30, 50);
-        FPScam.transform.eulerAngles = new Vector3(mouseY, mouseX, 0);
+        if(Input.GetKeyDown(KeyCode.Q))
+            Instantiate(lantern);
     }
-
 }

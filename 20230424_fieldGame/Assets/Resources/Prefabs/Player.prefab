@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 120959934393889579}
   - component: {fileID: 120959934393889578}
   - component: {fileID: 120959934393889577}
-  - component: {fileID: 120959934393889581}
-  - component: {fileID: 2921947992220886779}
   - component: {fileID: 120959934393889582}
+  - component: {fileID: 6929904523195773421}
+  - component: {fileID: 2921947992220886779}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,33 +101,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &120959934393889581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120959934393889576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f0198ff8b16e8643ae2f73bd09d9485, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FPScam: {fileID: 0}
---- !u!114 &2921947992220886779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120959934393889576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7974b04ac27bdb2428d9067af87aefb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hide: 0
-  check_box: 0
 --- !u!54 &120959934393889582
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -144,3 +117,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &6929904523195773421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120959934393889576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f0198ff8b16e8643ae2f73bd09d9485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 0}
+--- !u!114 &2921947992220886779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120959934393889576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7974b04ac27bdb2428d9067af87aefb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hide: 0
+  check_box: 0
