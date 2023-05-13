@@ -13,9 +13,9 @@ public class UIManager : MonoBehaviour
     public int timer = 0;
     public int life = 3;
 
-    public GameObject skillButton;
-    public GameObject[] skillButtons;
-    Vector2[] skillButtonsPos;
+    public GameObject heartImage;
+    public GameObject[] hearts;
+    Vector2[] heartsPos;
     public GameObject canvas;
 
     private void Start()
@@ -23,18 +23,17 @@ public class UIManager : MonoBehaviour
         canvas = GameObject.Find("Canvas").gameObject;
         jewelText = canvas.transform.Find("JewelText").GetComponent<TextMeshProUGUI>();
         timerText = canvas.transform.Find("TimerText").GetComponent<TextMeshProUGUI>();
-
         StartCoroutine(TimerCoroution());       
-        skillButton = Resources.Load<GameObject>("Images/HeartImage");
-        skillButtons = new GameObject[3];//index0~3:spawn skill //index4~7:combat skill
-        skillButtonsPos = new Vector2[3];
+        heartImage = Resources.Load<GameObject>("Images/HeartImage");
+        hearts = new GameObject[3];//index0~3:spawn skill //index4~7:combat skill
+        heartsPos = new Vector2[3];
         Vector2 direction = new Vector2(0f, 1f);
-        skillButton.GetComponent<RectTransform>().anchorMin = direction;
-        skillButton.GetComponent<RectTransform>().anchorMax = direction;
-        skillButton.GetComponent<RectTransform>().pivot = direction;
+        heartImage.GetComponent<RectTransform>().anchorMin = direction;
+        heartImage.GetComponent<RectTransform>().anchorMax = direction;
+        heartImage.GetComponent<RectTransform>().pivot = direction;
         for (int i = 0; i < 3; i++)
         {
-            skillButtonsPos[i] = new Vector2(100 * i, -200f);
+            heartsPos[i] = new Vector2(100 * i, -200f);
         }
         for (int i = 0; i < 3; i++)
         {
@@ -47,9 +46,10 @@ public class UIManager : MonoBehaviour
     }
     public void MakeSkillButton(int num)
     {
-        skillButtons[num] = (GameObject)Instantiate(skillButton);
-        skillButtons[num].transform.SetParent(canvas.transform);
-        skillButtons[num].transform.GetComponent<RectTransform>().anchoredPosition = skillButtonsPos[num];
+        hearts[num] = (GameObject)Instantiate(heartImage);
+        hearts[num].transform.SetParent(canvas.transform);
+        hearts[num].transform.GetComponent<RectTransform>().anchoredPosition = heartsPos[num];
+        hearts[num].transform.GetComponent<RectTransform>().localScale = new Vector2(1.0f, 1.0f);
     }
     IEnumerator TimerCoroution()
     {
