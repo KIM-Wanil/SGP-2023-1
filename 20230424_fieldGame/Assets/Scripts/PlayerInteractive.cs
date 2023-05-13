@@ -7,8 +7,9 @@ public class PlayerInteractive : MonoBehaviour
     public bool hide, check_box;
 
     PlayerControl player;
-    float interact_distance;
     GameObject Hideimg;
+    float interact_distance;
+
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<PlayerControl>();
@@ -20,42 +21,32 @@ public class PlayerInteractive : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(player.FPScam.transform.position, player.FPScam.forward * 20f, Color.red);
         CheckRay();
-        if (check_box)
-            CheckBox();
-        if (hide)
-            Hide();
     }
 
     void CheckRay()
     {
         RaycastHit hit;
-        
-        if(Physics.Raycast(player.FPScam.transform.position,player.FPScam.forward,out hit, interact_distance))
+
+        if(Physics.Raycast(player.transform.position, player.transform.forward, out hit, interact_distance))
         {
             if(hit.collider.CompareTag("Box"))
             {
                 if(Input.GetKeyDown(KeyCode.F))
+                {
                     check_box = true;
+                    Debug.Log("box");
+                }    
             }
 
             if(hit.collider.CompareTag("Hideout"))
             {
                 if (Input.GetKeyDown(KeyCode.F))
+                {
                     hide = true;
+                    Debug.Log("hideout");
+                }
             }
         }
-    }
-
-    void Hide()
-    {
-        
-
-    }
-
-    void CheckBox()
-    {
-        Debug.Log(check_box);
     }
 }
