@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1206134463708148453}
   m_Layer: 0
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Hideout
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -123,8 +123,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3574741010468048372}
   - component: {fileID: 4516895972920228909}
+
   m_Layer: 0
   m_Name: Hideout
   m_TagString: Hideout
