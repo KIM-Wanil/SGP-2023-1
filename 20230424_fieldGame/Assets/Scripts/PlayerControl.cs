@@ -6,23 +6,28 @@ public class PlayerControl : MonoBehaviour
 
     public GameObject cam;
     public bool isActionProgress;
-    public bool gameClear;
-
-    GameObject lantern;
-    float speed;
-
+    public bool getCurse;
+    public int life;
+    
+    [SerializeField] float speed;
+    //슬로우를 위해 만든 speed저장 변수
+    float tempSpeed;
+    float slowTimer;
+    GameObject lattern;
 	void Start () 
     {
-        Cursor.lockState = CursorLockMode.Locked;
-
         cam = Resources.Load<GameObject>("Prefabs/Cam");
         cam = Instantiate(cam);
 
-        lantern = Resources.Load<GameObject>("Prefabs/Lantern");
-
         isActionProgress = false;
-        gameClear = false;
+        getCurse = false;
+
+        life = 3;
         speed = 3f;
+        tempSpeed = speed;
+        slowTimer = 0f;
+
+        lattern = GameObject.Find("Player").transform.Find("Lantern").gameObject;
 	}
 	
 	// Update is called once per frame
@@ -32,8 +37,11 @@ public class PlayerControl : MonoBehaviour
         if(!isActionProgress)
         {
             Move();
-            UseLantern();
+            Lantern();
         }
+
+        if (getCurse)
+            Cursed();
     }
 
     void AttachCam()
@@ -55,9 +63,31 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    void UseLantern()
+    void Lantern()
     {
         if(Input.GetKeyDown(KeyCode.Q))
-            Instantiate(lantern);
+        {
+            if (!lattern.activeSelf)
+                lattern.SetActive(true);
+            else
+                lattern.SetActive(false);
+        }
+    }
+
+    void Cursed()
+    {
+        float slowSpeed = 1f;
+
+        if (slowTimer < 3.0f)
+        {
+            slowTimer += Time.deltaTime;
+            speed = slowSpeed;
+        }
+        else if (slowTimer > 3.0f)
+        {
+            speed = tempSpeed;
+            slowTimer = 0f;
+            getCurse = false;
+        }
     }
 }

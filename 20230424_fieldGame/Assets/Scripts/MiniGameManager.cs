@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class MiniGameManager : MonoBehaviour
 {
 
@@ -10,6 +9,9 @@ public class MiniGameManager : MonoBehaviour
     GameObject alphabetgameObj;
     GameObject timinggameObj;
     GameObject lightgameObj;
+    DungeonGeneratorByBinarySpacePartitioning.MapGenerator mapgenerator;
+
+    int randomNum;
 
     void Start()
     {
@@ -18,39 +20,29 @@ public class MiniGameManager : MonoBehaviour
         alphabetgameObj = Resources.Load<GameObject>("Prefabs/AlphabetGameGenerator");
         timinggameObj = Resources.Load<GameObject>("Prefabs/TimingGameGenerator");
         lightgameObj = Resources.Load<GameObject>("Prefabs/LightGameGenerator");
+        mapgenerator = GameObject.Find("EventSystem").GetComponent<DungeonGeneratorByBinarySpacePartitioning.MapGenerator>();
     }
 
     void Update()
     {
         if(interactive.check_box)
+        {
             RandomGameGenerate();
-
-        if(player.gameClear)
-            Clear();
+        }
     }
 
     void RandomGameGenerate()
     {
-        interactive.check_box = false;
         player.isActionProgress = true;
+        randomNum = Random.Range(0, 3);
 
-        int randomNum = Random.Range(1, 3);
-
-        if (randomNum == 1)
+        if (randomNum == 0)
             Instantiate(alphabetgameObj);
-        else if (randomNum == 2)
+        else if (randomNum == 1)
             Instantiate(timinggameObj);
-        else
+        else if (randomNum == 2)
             Instantiate(lightgameObj);
-    }
 
-    void Clear()
-    {
-        Destroy(gameObject);
-    }
-
-    void Fail()
-    {
-        Destroy(this);
+        interactive.check_box = false;
     }
 }
