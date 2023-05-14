@@ -28,29 +28,16 @@ namespace DungeonGeneratorByBinarySpacePartitioning
         [SerializeField] private int maxNode;
         [SerializeField] private float minDivideSize;
         [SerializeField] private float maxDivideSize;
-        [SerializeField] private int minRoomSize;
-
-        [SerializeField] private GameObject line;
-        [SerializeField] private Transform lineHolder;
-        [SerializeField] private GameObject rectangle;
-
         private GameObject wall;
-        [SerializeField] private GameObject box;
-        [SerializeField] private GameObject altar;
-        [SerializeField] private GameObject hideout;
+        private GameObject box;
+        private GameObject altar;
+        private GameObject hideout;
         private int[,] caveMap;
 
         private void Awake()
         {
             caveMap = new int[mapSize.x + 1, mapSize.y + 1];
-            for (int i = 0; i < mapSize.x; i++)
-            {
-                for (int j = 0; j < mapSize.y; j++)
-                {
-                    if (i == 0 || i == mapSize.x - 1 || j == 0 || j == 0 + mapSize.y - 1) caveMap[i, j] = 1;
-                    else caveMap[i, j] = 0;
-                }
-            }
+            
             wall = Resources.Load<GameObject>("Prefabs/Wall");
             box = Resources.Load<GameObject>("Prefabs/Box");
             altar = Resources.Load<GameObject>("Prefabs/Altar");
@@ -110,38 +97,8 @@ namespace DungeonGeneratorByBinarySpacePartitioning
             return treeNode.leftTree.dungeonSize; //부모 트리의 던전 크기는 자식 트리의 던전 크기 그대로 사용
         }
 
-        //private void GenerateRoad(TreeNode treeNode, int n) //길 연결
-        //{
-        //    if (n == maxNode) return; //노드가 최하위일 때는 길을 연결하지 않음, 최하위 노드는 자식 트리가 없기 때문
-        //    int x1 = GetCenterX(treeNode.leftTree.dungeonSize); //자식 트리의 던전 중앙 위치를 가져옴
-        //    int x2 = GetCenterX(treeNode.rightTree.dungeonSize);
-        //    int y1 = GetCenterY(treeNode.leftTree.dungeonSize);
-        //    int y2 = GetCenterY(treeNode.rightTree.dungeonSize);
-        //    for (int x = Mathf.Min(x1, x2); x <= Mathf.Max(x1, x2); x++) //x1과 x2중 값이 작은 곳부터 값이 큰 곳까지 타일 생성
-        //        //tilemap.SetTile(new Vector3Int(x - mapSize.x / 2, y1 - mapSize.y / 2, 0), tile); //mapSize.x / 2를 빼는 이유는 화면 중앙에 맞추기 위함
-        //        {
-        //            GameObject cube = Instantiate(wall, new Vector3Int(x - mapSize.x / 2, y1 - mapSize.y / 2, 0), Quaternion.identity) as GameObject;
-        //            cube.transform.parent = transform;
-        //        }
-        //    for (int y = Mathf.Min(y1, y2); y <= Mathf.Max(y1, y2); y++)
-        //        //tilemap.SetTile(new Vector3Int(x2 - mapSize.x / 2, y - mapSize.y / 2, 0), tile);
-        //        {
-        //            GameObject cube = Instantiate(wall, new Vector3Int(x2 - mapSize.x / 2, y - mapSize.y / 2, 0), Quaternion.identity) as GameObject;
-        //            cube.transform.parent = transform;
-        //        }
-        //    if(n<= maxNode-2)
-        //    {
-
-        //    }
-        //    GenerateRoad(treeNode.leftTree, n + 1);
-        //    GenerateRoad(treeNode.rightTree, n + 1);
-        //}
-
         private void OnDrawLine(Vector2 from, Vector2 to) //라인 렌더러를 이용해 라인을 그리는 메소드
         {
-            //LineRenderer lineRenderer = Instantiate(line, lineHolder).GetComponent<LineRenderer>();
-            //lineRenderer.SetPosition(0, from - mapSize / 2);
-            //lineRenderer.SetPosition(1, to - mapSize / 2);
             int x1 = (int)from.x;
             int x2 = (int)to.x;
             int y1 = (int)from.y;
@@ -149,45 +106,44 @@ namespace DungeonGeneratorByBinarySpacePartitioning
 
             int rnd = UnityEngine.Random.Range(0, 4);
             
-            Debug.Log(rnd);
             if (x2 > x1)
             {
                 for (int i = x1; i <= x2; i++)
                 {
                     caveMap[i, y2] = 1;
                 }
-                //if (rnd == 0)
-                //{
-                //    for (int i = x1 + 1; i <= (x1 + x2) / 2; i++)
-                //    {
-                //        caveMap[i, y2] = 0;
-                //    }
-                //}
-                //else if (rnd == 1)
-                //{
-                //    for (int i = (x1 + x2) / 2; i <= x2 - 1; i++)
-                //    {
-                //        caveMap[i, y2] = 0;
-                //    }
-                //}
-                //else if (rnd == 2)
-                //{
-                //    for (int i = (x1 + x2) / 2 - 1; i <= (x1 + x2) / 2 + 1; i++)
-                //    {
-                //        caveMap[i, y2] = 0;
-                //    }
-                //}
-                //else if (rnd == 3)
-                //{
-                //    for (int i = x1 + 1; i <= (x1 + (x1 + x2) / 2) / 2; i++)
-                //    {
-                //        caveMap[i, y2] = 0;
-                //    }
-                //    for (int i = (x2 + (x1 + x2) / 2) / 2; i <= x2 - 1; i++)
-                //    {
-                //        caveMap[i, y2] = 0;
-                //    }
-                //}
+                if (rnd == 0)
+                {
+                    for (int i = x1 + 1; i <= (x1 + x2) / 2; i++)
+                    {
+                        caveMap[i, y2] = 0;
+                    }
+                }
+                else if (rnd == 1)
+                {
+                    for (int i = (x1 + x2) / 2; i <= x2 - 1; i++)
+                    {
+                        caveMap[i, y2] = 0;
+                    }
+                }
+                else if (rnd == 2)
+                {
+                    for (int i = (x1 + x2) / 2 - 1; i <= (x1 + x2) / 2 + 1; i++)
+                    {
+                        caveMap[i, y2] = 0;
+                    }
+                }
+                else if (rnd == 3)
+                {
+                    for (int i = x1 + 1; i <= (x1 + (x1 + x2) / 2) / 2; i++)
+                    {
+                        caveMap[i, y2] = 0;
+                    }
+                    for (int i = (x2 + (x1 + x2) / 2) / 2; i <= x2 - 1; i++)
+                    {
+                        caveMap[i, y2] = 0;
+                    }
+                }
             }
             else if (y2 > y1)
             {
@@ -195,48 +151,48 @@ namespace DungeonGeneratorByBinarySpacePartitioning
                 {
                     caveMap[x2, i] = 1;
                 }
-                //if (rnd == 0)
-                //{
-                //    for (int i = y1 + 1; i <= (y1 + y2) / 2; i++)
-                //    {
-                //        caveMap[x2, i] = 0;
-                //    }
-                //}
-                //else if (rnd == 1)
-                //{
-                //    for (int i = (y1 + y2) / 2; i <= y2 - 1; i++)
-                //    {
-                //        caveMap[x2, i] = 0;
-                //    }
-                //}
-                //else if (rnd == 2)
-                //{
-                //    for (int i = (y1 + y2) / 2 - 1; i <= (y1 + y2) / 2 + 1; i++)
-                //    {
-                //        caveMap[x2, i] = 0;
-                //    }
-                //}
-                //else if (rnd == 3)
-                //{
-                //    for (int i = y1 + 1; i <= (y1 + (y1 + y2) / 2) / 2; i++)
-                //    {
-                //        caveMap[x2, i] = 0;
-                //    }
-                //    for (int i = (y2 + (y1 + y2) / 2) / 2; i <= y2 - 1; i++)
-                //    {
-                //        caveMap[x2, i] = 0;
-                //    }
-                //}
+                if (rnd == 0)
+                {
+                    for (int i = y1 + 1; i <= (y1 + y2) / 2; i++)
+                    {
+                        caveMap[x2, i] = 0;
+                    }
+                }
+                else if (rnd == 1)
+                {
+                    for (int i = (y1 + y2) / 2; i <= y2 - 1; i++)
+                    {
+                        caveMap[x2, i] = 0;
+                    }
+                }
+                else if (rnd == 2)
+                {
+                    for (int i = (y1 + y2) / 2 - 1; i <= (y1 + y2) / 2 + 1; i++)
+                    {
+                        caveMap[x2, i] = 0;
+                    }
+                }
+                else if (rnd == 3)
+                {
+                    for (int i = y1 + 1; i <= (y1 + (y1 + y2) / 2) / 2; i++)
+                    {
+                        caveMap[x2, i] = 0;
+                    }
+                    for (int i = (y2 + (y1 + y2) / 2) / 2; i <= y2 - 1; i++)
+                    {
+                        caveMap[x2, i] = 0;
+                    }
+                }
             }
-            if (rnd == 2 || rnd == 3) return;
-            Vector2Int hidePos = new Vector2Int(0, 0);
-            hidePos.x = (x1 + x2) / 2+1;
-            hidePos.y = (y1 + y2) / 2 +1;
-            if (hidePos.x <= 0) hidePos.x = 1;
-            else if (hidePos.x >= mapSize.x - 1) hidePos.x = mapSize.x - 2;
-            if (hidePos.y <= 0) hidePos.y = 1;
-            else if (hidePos.y >= mapSize.y - 1) hidePos.y = mapSize.y - 2;
-            caveMap[hidePos.x, hidePos.y] = 3;
+            //if (rnd == 2 || rnd == 3) return;
+            //Vector2Int hidePos = new Vector2Int(0, 0);
+            //hidePos.x = (x1 + x2) / 2+1;
+            //hidePos.y = (y1 + y2) / 2 +1;
+            //if (hidePos.x <= 0) hidePos.x = 1;
+            //else if (hidePos.x >= mapSize.x - 1) hidePos.x = mapSize.x - 2;
+            //if (hidePos.y <= 0) hidePos.y = 1;
+            //else if (hidePos.y >= mapSize.y - 1) hidePos.y = mapSize.y - 2;
+            //caveMap[hidePos.x, hidePos.y] = 3;
 
         }
 
@@ -272,12 +228,24 @@ namespace DungeonGeneratorByBinarySpacePartitioning
         }
         private void OnDrawAll() //크기에 맞춰 타일을 생성하는 메소드
         {
+            for (int i = 0; i < mapSize.x; i++)
+            {
+                for (int j = 0; j < mapSize.y; j++)
+                {
+                    if (i == 0 || i == mapSize.x - 1 || j == 0 || j == 0 + mapSize.y - 1) caveMap[i, j] = 1;
+                    //else caveMap[i, j] = 0;
+                }
+            }
             for (int i = mapSize.x / 2 - 4; i <= mapSize.x / 2 + 4; i++)
                 for (int j = mapSize.y / 2 - 4; j <= mapSize.y / 2 + 4; j++)
                     caveMap[i, j] = 0;
             GameObject clone_altar = Instantiate(altar, new Vector3Int(mapSize.x / 2, 0, mapSize.y / 2), Quaternion.identity) as GameObject;
             clone_altar.transform.parent = transform;
-
+            caveMap[mapSize.x / 4, mapSize.y / 4] = 3;
+            caveMap[mapSize.x / 4, 3*mapSize.y / 4] = 3;
+            caveMap[3*mapSize.x / 4, mapSize.y / 4] = 3;
+            caveMap[3*mapSize.x / 4, 3*mapSize.y / 4] = 3;
+            caveMap[mapSize.x / 2+3, mapSize.y / 2+3] = 3;
             for (int i = 0; i < mapSize.x; i++)
                 for (int j = 0; j < mapSize.y; j++)
                 //tilemap.SetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0), tile);
@@ -291,6 +259,7 @@ namespace DungeonGeneratorByBinarySpacePartitioning
                     {
                         GameObject clone_box = Instantiate(box, new Vector3(i, 0.5f, j), Quaternion.identity) as GameObject;
                         clone_box.transform.parent = transform;
+                        //clone_box.GetComponent<MiniGameManager>().randomNum = Random.Range(0, 3);
                     }
                     else if (caveMap[i, j] == 3)
                     {
