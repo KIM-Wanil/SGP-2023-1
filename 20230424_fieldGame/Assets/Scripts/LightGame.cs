@@ -21,6 +21,9 @@ public class LightGame : MonoBehaviour
     private GameObject gauge;
     private Image bar;
 
+    // 2023/05/14 장진혁추가
+    PlayerControl player;
+
     // 알파벳을 저장할 배열
     //private char[] alphabets = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 
@@ -80,6 +83,10 @@ public class LightGame : MonoBehaviour
         timeLeft = timeLimit;
         SetGame();
         Invoke("StartGame", 2f);
+
+        //2023/05/14 장진혁추가
+        player = GameObject.Find("Player").GetComponent<PlayerControl>();
+
     }
     public void MakeBulbButton(int num)
     {
@@ -138,6 +145,9 @@ public class LightGame : MonoBehaviour
     // 게임 종료 처리
     private void GameOver()
     {
+        //2023/05/14 장진혁추가
+        player.isActionProgress = false;
+
         foreach (GameObject key in bulbs)
         {
             Destroy(key);
@@ -170,6 +180,10 @@ public class LightGame : MonoBehaviour
     // 게임 성공 처리
     private void GameClear ()
     {
+        //2023/05/14 장진혁추가
+        player.isActionProgress = false;
+        player.gameClear = true;
+
         foreach (GameObject bulb in bulbs)
         { 
             Destroy(bulb); 

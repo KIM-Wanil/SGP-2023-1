@@ -23,6 +23,8 @@ public class TimingGame : MonoBehaviour
     private GameObject gauge;
     private Image bar;
 
+    //2023/05/14 장진혁추가
+    PlayerControl player;
 
     private void GeneratePartition()
     {
@@ -76,7 +78,11 @@ public class TimingGame : MonoBehaviour
         
         timeLeft = timeLimit;
         GeneratePartition();
+
+        //2023/05/14 장진혁추가
+        player = GameObject.Find("Player").GetComponent<PlayerControl>();
     }
+
     private void StopSpeed()
     {
         speed = 0f;
@@ -146,6 +152,9 @@ public class TimingGame : MonoBehaviour
     //게임 실패 처리
     private void GameOver()
     {
+        //2023/05/14 장진혁추가
+        player.isActionProgress = false;
+
         foreach (GameObject part in partition)
         {
             Destroy(part);
@@ -161,6 +170,10 @@ public class TimingGame : MonoBehaviour
     // 게임 성공 처리
     private void GameClear()
     {
+        //2023/05/14 장진혁추가
+        player.isActionProgress = false;
+        player.gameClear = true;
+
         foreach (GameObject part in partition)
         {
             Destroy(part);

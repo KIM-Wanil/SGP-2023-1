@@ -21,7 +21,8 @@ public class PlayerInteractive : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckRay();
+        if(!player.isActionProgress)
+            CheckRay();
     }
 
     void CheckRay()

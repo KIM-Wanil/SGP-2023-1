@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 736355629941610226}
   - component: {fileID: 2049783876628158720}
   - component: {fileID: 497644935516487393}
+  - component: {fileID: 5867102348017717937}
   m_Layer: 0
   m_Name: box
   m_TagString: Box
@@ -114,3 +115,15 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &5867102348017717937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8816049281008986200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c9bce5ec928ddf4ca3ccc34e5195d9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
