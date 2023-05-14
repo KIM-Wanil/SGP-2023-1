@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerControl : MonoBehaviour {
+public class PlayerControl : MonoBehaviour 
+{
 
     public GameObject cam;
+    public bool isActionProgress;
+    public bool gameClear;
+
     GameObject lantern;
     float speed;
 
@@ -16,6 +20,8 @@ public class PlayerControl : MonoBehaviour {
 
         lantern = Resources.Load<GameObject>("Prefabs/Lantern");
 
+        isActionProgress = false;
+        gameClear = false;
         speed = 3f;
 	}
 	
@@ -23,13 +29,16 @@ public class PlayerControl : MonoBehaviour {
     void Update () 
     {
         AttachCam();
-        Move();
-        UseLantern();
+        if(!isActionProgress)
+        {
+            Move();
+            UseLantern();
+        }
     }
 
     void AttachCam()
     {
-        cam.transform.position = new Vector3(this.transform.position.x, this.transform.position.y+2.0f, this.transform.position.z-2f);
+        cam.transform.position = new Vector3(this.transform.position.x, this.transform.position.y+2f, this.transform.position.z-2f);
         cam.transform.rotation = Quaternion.Euler(45, 0, 0);
     }
 

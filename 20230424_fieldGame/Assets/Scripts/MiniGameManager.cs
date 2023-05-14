@@ -4,35 +4,36 @@ using UnityEngine;
 
 public class MiniGameManager : MonoBehaviour
 {
-    public bool gameClear;
 
+    PlayerControl player;
+    PlayerInteractive interactive;
     GameObject alphabetgameObj;
     GameObject timinggameObj;
     GameObject lightgameObj;
 
     void Start()
     {
+        player = GameObject.Find("Player").GetComponent<PlayerControl>();
+        interactive = GameObject.Find("Player").GetComponent<PlayerInteractive>();
         alphabetgameObj = Resources.Load<GameObject>("Prefabs/AlphabetGameGenerator");
         timinggameObj = Resources.Load<GameObject>("Prefabs/TimingGameGenerator");
         lightgameObj = Resources.Load<GameObject>("Prefabs/LightGameGenerator");
-        gameClear = false;
     }
 
     void Update()
     {
-        RandomGameGenerate();
-        if(gameClear)
-        {
+        if(interactive.check_box)
+            RandomGameGenerate();
+
+        if(player.gameClear)
             Clear();
-        }
-        else
-        {
-            Fail();
-        }
     }
 
     void RandomGameGenerate()
     {
+        interactive.check_box = false;
+        player.isActionProgress = true;
+
         int randomNum = Random.Range(1, 3);
 
         if (randomNum == 1)
@@ -45,11 +46,11 @@ public class MiniGameManager : MonoBehaviour
 
     void Clear()
     {
-
+        Destroy(gameObject);
     }
 
     void Fail()
     {
-
+        Destroy(this);
     }
 }

@@ -22,6 +22,9 @@ public class AlphabetGame : MonoBehaviour
     // 알파벳을 저장할 배열
     private char[] alphabets = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 
+    //2023/05/14 장진혁추가
+    PlayerControl player;
+
     // 랜덤으로 알파벳 6개를 생성하는 함수
     private void GenerateAlphabets()
     {
@@ -59,6 +62,10 @@ public class AlphabetGame : MonoBehaviour
         currentAlphabets = new char[COUNT+1];
         timeLeft = timeLimit;
         StartGame();
+
+        //2023/05/14 장진혁 추가
+        player = GameObject.Find("Player").GetComponent<PlayerControl>();
+
     }
     public void MakeKeyButton(int num)
     {
@@ -113,6 +120,9 @@ public class AlphabetGame : MonoBehaviour
     // 게임 종료 처리
     private void GameOver()
     {
+        //2023/05/14 장진혁추가
+        player.isActionProgress = false;
+
         foreach (GameObject key in keys)
         {
             Destroy(key);
@@ -143,6 +153,10 @@ public class AlphabetGame : MonoBehaviour
     // 게임 성공 처리
     private void GameClear ()
     {
+        //2023/05/14 장진혁추가
+        player.isActionProgress = false;
+        player.gameClear = true;
+
         foreach (GameObject key in keys)
         { 
             Destroy(key); 
