@@ -31,11 +31,11 @@ public class UIManager : MonoBehaviour
         heartImage.GetComponent<RectTransform>().anchorMin = direction;
         heartImage.GetComponent<RectTransform>().anchorMax = direction;
         heartImage.GetComponent<RectTransform>().pivot = direction;
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < life; i++)
         {
             heartsPos[i] = new Vector2(100 * i, -200f);
         }
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < life; i++)
         {
             MakeSkillButton(i);
         }
