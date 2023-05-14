@@ -25,6 +25,7 @@ public class TimingGame : MonoBehaviour
 
     //2023/05/14 ¿Â¡¯«ı√ﬂ∞°
     PlayerControl player;
+    PlayerInteractive interactive;
 
     private void GeneratePartition()
     {
@@ -81,6 +82,7 @@ public class TimingGame : MonoBehaviour
 
         //2023/05/14 ¿Â¡¯«ı√ﬂ∞°
         player = GameObject.Find("Player").GetComponent<PlayerControl>();
+        interactive = GameObject.Find("Player").GetComponent<PlayerInteractive>();
     }
 
     private void StopSpeed()
@@ -100,11 +102,12 @@ public class TimingGame : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GameOver();
+            Destroy(gameObject);
+
             return;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log(hand.transform.eulerAngles.z);
             float handZ = (hand.transform.eulerAngles.z + 360f) % 360;
             foreach (GameObject part in partition)
             {      
@@ -125,7 +128,6 @@ public class TimingGame : MonoBehaviour
                 {
                     if (handZ <= partZ &&  handZ >= partZ - 36f && part.activeSelf)
                     {
-                        Debug.Log(part.transform.eulerAngles.z);
                         score++;
                         part.SetActive(false);
                         Invoke("StopSpeed", 0f);
@@ -162,7 +164,7 @@ public class TimingGame : MonoBehaviour
         Destroy(gauge);
         Destroy(clock);
         Destroy(hand);
-        Destroy(this);
+        Destroy(gameObject);
         Debug.Log("GameOver");
     }
 
@@ -172,7 +174,7 @@ public class TimingGame : MonoBehaviour
     {
         //2023/05/14 ¿Â¡¯«ı√ﬂ∞°
         player.isActionProgress = false;
-        player.gameClear = true;
+        interactive.gameClear = true;
 
         foreach (GameObject part in partition)
         {
@@ -181,7 +183,7 @@ public class TimingGame : MonoBehaviour
         Destroy(gauge);
         Destroy(clock);
         Destroy(hand);
-        Destroy(this);
+        Destroy(gameObject);
         Debug.Log("GameClear");
     }
 }

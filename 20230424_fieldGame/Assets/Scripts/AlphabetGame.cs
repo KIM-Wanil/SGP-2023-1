@@ -24,6 +24,7 @@ public class AlphabetGame : MonoBehaviour
 
     //2023/05/14 장진혁추가
     PlayerControl player;
+    PlayerInteractive interactive;
 
     // 랜덤으로 알파벳 6개를 생성하는 함수
     private void GenerateAlphabets()
@@ -65,6 +66,7 @@ public class AlphabetGame : MonoBehaviour
 
         //2023/05/14 장진혁 추가
         player = GameObject.Find("Player").GetComponent<PlayerControl>();
+        interactive = GameObject.Find("Player").GetComponent<PlayerInteractive>();
 
     }
     public void MakeKeyButton(int num)
@@ -83,6 +85,8 @@ public class AlphabetGame : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GameOver();
+            Destroy(gameObject);
+
             return;
         }
             // 현재 입력된 키와 현재 알파벳이 일치하면 다음 알파벳으로 넘어감
@@ -97,7 +101,6 @@ public class AlphabetGame : MonoBehaviour
                     // 모든 알파벳을 입력했으면 다음 라운드로 넘어감
                     //GenerateAlphabets();
                     GameClear();
-                    Debug.Log("Clear");
                 }
             }
             else
@@ -128,7 +131,7 @@ public class AlphabetGame : MonoBehaviour
             Destroy(key);
         }
         Destroy(gauge);
-        Destroy(this);
+        Destroy(gameObject);
         Debug.Log("GameOver");
         //alphabetText.text = "Game Over!";
     }
@@ -155,13 +158,15 @@ public class AlphabetGame : MonoBehaviour
     {
         //2023/05/14 장진혁추가
         player.isActionProgress = false;
-        player.gameClear = true;
+        interactive.gameClear = true;
 
         foreach (GameObject key in keys)
         { 
             Destroy(key); 
         }
         Destroy(gauge);
+        Destroy(gameObject);
+
         Debug.Log("GameClear");
         //alphabetText.text = "Game Clear!";
     }

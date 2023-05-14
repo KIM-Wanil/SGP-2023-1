@@ -23,6 +23,7 @@ public class LightGame : MonoBehaviour
 
     // 2023/05/14 장진혁추가
     PlayerControl player;
+    PlayerInteractive interactive;
 
     // 알파벳을 저장할 배열
     //private char[] alphabets = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
@@ -46,7 +47,6 @@ public class LightGame : MonoBehaviour
                 correctBulbStates[i] = false;
             }
         }
-        //UpdateAlphabetText();
     }
     private void Start()
     {
@@ -86,6 +86,8 @@ public class LightGame : MonoBehaviour
 
         //2023/05/14 장진혁추가
         player = GameObject.Find("Player").GetComponent<PlayerControl>();
+        interactive = GameObject.Find("Player").GetComponent<PlayerInteractive>();
+
 
     }
     public void MakeBulbButton(int num)
@@ -105,6 +107,8 @@ public class LightGame : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GameOver();
+            Destroy(gameObject);
+
             return;
         }
         // 게임이 종료되었으면 입력을 받지 않음       
@@ -153,7 +157,7 @@ public class LightGame : MonoBehaviour
             Destroy(key);
         }
         Destroy(gauge);
-        Destroy(this);
+        Destroy(gameObject);
         Debug.Log("GameOver");
     }
 
@@ -182,14 +186,14 @@ public class LightGame : MonoBehaviour
     {
         //2023/05/14 장진혁추가
         player.isActionProgress = false;
-        player.gameClear = true;
+        interactive.gameClear = true;
 
         foreach (GameObject bulb in bulbs)
         { 
             Destroy(bulb); 
         }
         Destroy(gauge);
-        Destroy(this);
+        Destroy(gameObject);
         Debug.Log("GameClear");
         //alphabetText.text = "Game Clear!";
     }
