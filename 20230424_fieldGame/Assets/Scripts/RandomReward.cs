@@ -48,13 +48,44 @@ public class RandomReward : MonoBehaviour
 
     void ShuffleBoxes()
     {
-        List<int> exclusiveList = new List<int>();
+        //boxlist random shuffle
         for(int i = 0; i < boxList.Count; i++)
         {
             int temp = boxList[i];
             int randomIndex = 0;
+            randomIndex = Random.Range(i, boxList.Count);
             boxList[i] = boxList[randomIndex];
             boxList[randomIndex] = temp;
+        }
+
+        // 섞인 리스트에서 jewel의 index가 10을 넘는 것들을 3에서 10사이의 idx로 스왑
+        for(int i = 0; i < boxList.Count; i++)
+        {
+            int temp = boxList[i];
+            int randomIndex = 0;
+            if(boxList[i] == 0 && i > 9)
+            {
+                randomIndex = Random.Range(3, 10);
+                while(boxList[randomIndex] == 0)
+                    randomIndex = Random.Range(3, 10);
+                boxList[i] = boxList[randomIndex];
+                boxList[randomIndex] = temp;
+            }
+        }
+
+        // 스왑하는 과정에서 jewel의 idx차이가 1밖에 안나는것들을 떨어트려놓기
+        for(int i = 0; i < 10; i++)
+        {
+            int temp = boxList[i];
+            int randomIndex = 0;
+            if(boxList[i] == 0 && boxList[i+1] == 0)
+            {
+                randomIndex = Random.Range(3, 10);
+                while(boxList[randomIndex] == 0)
+                    randomIndex = Random.Range(3, 10);
+                boxList[i] = boxList[randomIndex];
+                boxList[randomIndex] = temp;
+            }
         }
     }
 

@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Hideout
   - Box
+  - Ghost
+  - Jewel
+  - GhostDetect
   layers:
   - Default
   - TransparentFX
