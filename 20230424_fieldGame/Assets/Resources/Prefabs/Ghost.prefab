@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1147969684285095480}
   - component: {fileID: 8309997030245432833}
   - component: {fileID: 5110716731958820263}
+  - component: {fileID: 5853075806802382439}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Ghost
@@ -111,7 +112,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.3
-  m_Speed: 3.5
+  m_Speed: 3
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -135,6 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdbf0814c4d58e438932feda0790015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  talismanEffect: {fileID: 0}
 --- !u!54 &5110716731958820263
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -151,3 +153,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!135 &5853075806802382439
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147969684285095481}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}

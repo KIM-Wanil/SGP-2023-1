@@ -49,6 +49,10 @@ public class ButtonController : MonoBehaviour
     {
         SceneManager.LoadScene("Fail_Stage");
     }
+    public void ClearStage()
+    {
+        SceneManager.LoadScene("Clear_Stage");
+    }
     public void Info_button()
     {
         infoCanvas.SetActive(true);

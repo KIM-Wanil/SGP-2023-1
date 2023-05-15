@@ -5,10 +5,10 @@ using UnityEngine;
 public class GhostSpawner : MonoBehaviour
 {
     private GameObject ghostPrefab;
-    private GameObject ghost;
+    public GameObject ghost;
     private GameObject player;
     private bool isGhostOn;
-    private float spawnTime = 3f;
+    public float spawnTime = 20f;
     private float spawnTimeLeft;
     // Start is called before the first frame update
     void Start()
@@ -39,7 +39,7 @@ public class GhostSpawner : MonoBehaviour
 
     public Vector3 SetPosition()
     {
-        float len = 15f;
+        float len = 10f;
         Vector3 playerPos = player.transform.position;
         playerPos.y = 0f;
         float angle;

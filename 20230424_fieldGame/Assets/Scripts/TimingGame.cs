@@ -41,8 +41,8 @@ public class TimingGame : MonoBehaviour
             partition[i].transform.GetComponent<RectTransform>().localScale = new Vector2(1.0f, 1.0f);
             partition[i].GetComponent<Image>().color = new Color(0f, 0f, 255f);
             partition[i].GetComponent<Image>().fillAmount = 0.1f;// randomSize;
-            float randomRotation = Random.Range(-40f, 40f);
-            partition[i].transform.Rotate(0f, 0f, randomRotation - i * 120f);
+            //float randomRotation = Random.Range(10f, 20f);
+            partition[i].transform.Rotate(0f, 0f, 30f - i * 120f);
         }
     }
     private void Start()
@@ -114,7 +114,7 @@ public class TimingGame : MonoBehaviour
                 float partZ = (part.transform.eulerAngles.z + 360f) % 360;
                 if(partZ<36f)
                 {
-                    if ( (( handZ < partZ && handZ > 0) ||  (handZ < 360 && handZ >360f-partZ))   && part.activeSelf)
+                    if ( (( handZ < partZ+10f && handZ > 0) ||  (handZ < 360 && handZ >360f-partZ-10f))   && part.activeSelf)
                     {
                         Debug.Log(part.transform.eulerAngles.z);
                         score++;
@@ -126,7 +126,7 @@ public class TimingGame : MonoBehaviour
                 }
                 else 
                 {
-                    if (handZ <= partZ &&  handZ >= partZ - 36f && part.activeSelf)
+                    if (handZ <= partZ+10f &&  handZ >= partZ - 46f && part.activeSelf)
                     {
                         score++;
                         part.SetActive(false);

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI jewelText;
+    public TextMeshProUGUI talismanCountText;
     public int jewelCount = 0;
     public int allJewelCount = 3;
     public int timer = 0;
@@ -17,12 +19,17 @@ public class UIManager : MonoBehaviour
     public GameObject[] hearts;
     Vector2[] heartsPos;
     public GameObject canvas;
+    public GameObject player;
+
+    
 
     private void Start()
     {
+        player = GameObject.Find("Player").gameObject;
         canvas = GameObject.Find("Canvas").gameObject;
         jewelText = canvas.transform.Find("JewelText").GetComponent<TextMeshProUGUI>();
         timerText = canvas.transform.Find("TimerText").GetComponent<TextMeshProUGUI>();
+        talismanCountText = canvas.transform.Find("talismanIcon").Find("CountText").GetComponent<TextMeshProUGUI>();
         StartCoroutine(TimerCoroution());       
         heartImage = Resources.Load<GameObject>("Images/HeartImage");
         hearts = new GameObject[3];//index0~3:spawn skill //index4~7:combat skill
@@ -43,6 +50,11 @@ public class UIManager : MonoBehaviour
     public void Update()
     {
         jewelText.text = "Goals : " + jewelCount.ToString() + "/" + allJewelCount.ToString();
+        talismanCountText.text = player.GetComponent<PlayerInteractive>().talismanCount.ToString();
+        if(jewelCount>=allJewelCount)
+        {
+            SceneManager.LoadScene("Clear_Stage");
+        }
     }
     public void MakeSkillButton(int num)
     {

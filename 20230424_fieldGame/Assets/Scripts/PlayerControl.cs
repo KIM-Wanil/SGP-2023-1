@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
 public class PlayerControl : MonoBehaviour 
 {
 
@@ -14,15 +14,18 @@ public class PlayerControl : MonoBehaviour
     float tempSpeed;
     float slowTimer;
     GameObject lattern;
-	void Start () 
+
+    public UIManager uimanager;
+    void Start () 
     {
+        uimanager = GameObject.Find("EventSystem").GetComponent<UIManager>();
         cam = Resources.Load<GameObject>("Prefabs/Cam");
         cam = Instantiate(cam);
 
         isActionProgress = false;
         getCurse = false;
 
-        life = 3;
+        life = uimanager.life;
         speed = 3f;
         tempSpeed = speed;
         slowTimer = 0f;
@@ -42,12 +45,16 @@ public class PlayerControl : MonoBehaviour
 
         if (getCurse)
             Cursed();
+        if(life<=0)
+        {
+            SceneManager.LoadScene("Fail_Stage");
+        }
     }
 
     void AttachCam()
     {
-        cam.transform.position = new Vector3(this.transform.position.x, this.transform.position.y+2f, this.transform.position.z-2f);
-        cam.transform.rotation = Quaternion.Euler(45, 0, 0);
+        cam.transform.position = new Vector3(this.transform.position.x, this.transform.position.y+5f, this.transform.position.z-2.5f);
+        cam.transform.rotation = Quaternion.Euler(60, 0, 0);
     }
 
     void Move()

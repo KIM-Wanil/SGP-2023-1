@@ -13,26 +13,32 @@ public class PlayerInteractive : MonoBehaviour
 
     PlayerControl player;
     UIManager uimanager;
+    GhostSpawner ghostSpawner;
 
     GameObject closestJewel = null;
     GameObject carriedJewel = null;
-    bool canOffer = false;
+    GameObject ghost;
+    bool canOffer = false; 
     //GameObject Hideimg;
-    
     float interact_distance;
+
+    //20230515 ±Ëøœ¿œ√ﬂ∞°
+    
 
     void Start()
     {
+        ghost = null;
         player = GameObject.Find("Player").GetComponent<PlayerControl>();
         uimanager = GameObject.Find("EventSystem").GetComponent<UIManager>();
+        ghostSpawner = GameObject.Find("GhostSpawner").GetComponent<GhostSpawner>();
 
-        interact_distance = 5f;
+        interact_distance = 3f;
         hide = false;
         check_box = false;
         gameClear = false;
 
         openBoxCount = 0;
-        talismanCount = 1;
+        talismanCount = 3;
     }
 
     // Update is called once per frame
@@ -41,6 +47,28 @@ public class PlayerInteractive : MonoBehaviour
         if(!player.isActionProgress)
             CheckRay();
         pick_or_drop_control();
+
+
+        if (talismanCount > 0 && Input.GetKeyDown(KeyCode.W))
+        {
+            try
+            {
+                ghost = GameObject.FindWithTag("Ghost").gameObject;
+            }
+            catch
+            {
+                ghost = null;
+                return;
+            }
+            if (ghost == null) return;
+            if (Vector3.Distance(player.transform.position, ghost.transform.position) < 3f)
+            {
+                Debug.Log("Destroy ghost by talisman");
+                Destroy(ghost.gameObject);
+                ghost.GetComponent<GhostAI>().DestroyGhost();
+                talismanCount--;
+            }
+        }
     }
 
     void CheckRay()
@@ -53,9 +81,8 @@ public class PlayerInteractive : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.F))
                     check_box = true;
-
-                if (gameClear)
-                    Destroy(hit.collider.gameObject);
+                //if (gameClear)
+                //    Destroy(hit.collider.gameObject);    
             }
 
             if (hit.collider.CompareTag("Hideout"))
@@ -63,11 +90,19 @@ public class PlayerInteractive : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.F))
                     hide = true;
             }
+             
         }
+
     }
     private void OnTriggerStay(Collider other)
     {
         GameObject other_go = other.gameObject;
+
+        if (other.CompareTag("Box"))
+        {
+            if (gameClear)
+                Destroy(other.gameObject);
+        }
 
         if (other.CompareTag("Jewel"))
         {
@@ -91,14 +126,15 @@ public class PlayerInteractive : MonoBehaviour
             }
         }
 
-        if(other.CompareTag("Ghost"))
-        {
-            if(talismanCount > 0 && Input.GetKeyDown(KeyCode.W))
-            {
-                Destroy(other_go);
-                talismanCount--;
-            }
-        }
+        //if(other.CompareTag("Ghost"))
+        //{
+        //    if(talismanCount > 0 && Input.GetKeyDown(KeyCode.W))
+        //    {
+        //        Debug.Log("Ω∏!!!!!");
+        //        Destroy(other_go);
+        //        talismanCount--;
+        //    }
+        //}
     }
 
 
@@ -143,6 +179,7 @@ public class PlayerInteractive : MonoBehaviour
                     Destroy(carriedJewel);
                     carriedJewel = null;
                     uimanager.jewelCount++;
+                    ghostSpawner.spawnTime -= 3f;
                     canOffer = false;
                 }
             }
