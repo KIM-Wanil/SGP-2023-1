@@ -193,7 +193,7 @@ public class LightGame : MonoBehaviour
             Destroy(bulb); 
         }
         Destroy(gauge);
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
         Debug.Log("GameClear");
         //alphabetText.text = "Game Clear!";
     }

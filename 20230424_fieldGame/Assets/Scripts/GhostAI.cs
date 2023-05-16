@@ -8,17 +8,16 @@ public class GhostAI : MonoBehaviour
     GameObject player;
     NavMeshAgent nav;
     public GameObject talismanEffect;
-    UIManager uimanager;
     // Start is called before the first frame update
     void Start()
     {
-        uimanager = GameObject.Find("EventSystem").GetComponent<UIManager>();
         talismanEffect = Resources.Load<GameObject>("Prefabs/TalismanEffect");
         player = GameObject.Find("Player");
         nav = GetComponent<NavMeshAgent>();
-        if (uimanager.jewelCount == 0) nav.speed = 3f;
-        else if (uimanager.jewelCount == 1) nav.speed = 3.25f;
-        else if (uimanager.jewelCount == 2) nav.speed = 3.25f;
+        if (GameManager.instance.jewelCount == 0) nav.speed = 2.5f;
+        else if (GameManager.instance.jewelCount == 1) nav.speed = 2.75f;
+        else if (GameManager.instance.jewelCount == 2) nav.speed = 3.0f;
+        else nav.speed = 3.25f;
         //StartCoroutine(ChasePlayer());
         StartChase();
 
@@ -72,8 +71,8 @@ public class GhostAI : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            collision.collider.GetComponent<PlayerControl>().life -= 1;
-            Destroy(collision.collider.GetComponent<PlayerControl>().uimanager.hearts[collision.collider.GetComponent<PlayerControl>().life]);
+
+            GameManager.instance.lostLife();
             collision.collider.gameObject.transform.position = new Vector3(23f, 1f, 23f);
             Destroy(this.gameObject);
         }

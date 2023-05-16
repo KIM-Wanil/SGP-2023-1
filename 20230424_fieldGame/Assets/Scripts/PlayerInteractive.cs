@@ -9,10 +9,8 @@ public class PlayerInteractive : MonoBehaviour
     public bool createJewel;
 
     public int openBoxCount;
-    public int talismanCount;
 
     PlayerControl player;
-    UIManager uimanager;
     GhostSpawner ghostSpawner;
 
     GameObject closestJewel = null;
@@ -29,7 +27,6 @@ public class PlayerInteractive : MonoBehaviour
     {
         ghost = null;
         player = GameObject.Find("Player").GetComponent<PlayerControl>();
-        uimanager = GameObject.Find("EventSystem").GetComponent<UIManager>();
         ghostSpawner = GameObject.Find("GhostSpawner").GetComponent<GhostSpawner>();
 
         interact_distance = 3f;
@@ -38,7 +35,6 @@ public class PlayerInteractive : MonoBehaviour
         gameClear = false;
 
         openBoxCount = 0;
-        talismanCount = 3;
     }
 
     // Update is called once per frame
@@ -48,8 +44,11 @@ public class PlayerInteractive : MonoBehaviour
             CheckRay();
         pick_or_drop_control();
 
-
-        if (talismanCount > 0 && Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            GameManager.instance.talismanCount++;
+        }
+        if (GameManager.instance.talismanCount > 0 && Input.GetKeyDown(KeyCode.W))
         {
             try
             {
@@ -66,7 +65,7 @@ public class PlayerInteractive : MonoBehaviour
                 Debug.Log("Destroy ghost by talisman");
                 Destroy(ghost.gameObject);
                 ghost.GetComponent<GhostAI>().DestroyGhost();
-                talismanCount--;
+                GameManager.instance.talismanCount--;
             }
         }
     }
@@ -80,7 +79,8 @@ public class PlayerInteractive : MonoBehaviour
             if (hit.collider.CompareTag("Box"))
             {
                 if (Input.GetKeyDown(KeyCode.F))
-                    check_box = true;
+                    hit.collider.transform.GetComponent<MiniGameManager>().RandomGameGenerate();
+                    //check_box = true;
                 //if (gameClear)
                 //    Destroy(hit.collider.gameObject);    
             }
@@ -98,11 +98,11 @@ public class PlayerInteractive : MonoBehaviour
     {
         GameObject other_go = other.gameObject;
 
-        if (other.CompareTag("Box"))
-        {
-            if (gameClear)
-                Destroy(other.gameObject);
-        }
+        //if (other.CompareTag("Box"))
+        //{
+        //    if (gameClear)
+        //        Destroy(other.gameObject);
+        //}
 
         if (other.CompareTag("Jewel"))
         {
@@ -178,8 +178,8 @@ public class PlayerInteractive : MonoBehaviour
                 {
                     Destroy(carriedJewel);
                     carriedJewel = null;
-                    uimanager.jewelCount++;
-                    ghostSpawner.spawnTime -= 3f;
+                    GameManager.instance.GetJewel();
+                    GameManager.instance.spawnTime -= 3f;
                     canOffer = false;
                 }
             }

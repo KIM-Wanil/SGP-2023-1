@@ -258,7 +258,7 @@ namespace DungeonGeneratorByBinarySpacePartitioning
                     else if (caveMap[i, j] == 2)
                     {
                         GameObject clone_box = Instantiate(box, new Vector3(i, 0.5f, j), Quaternion.identity) as GameObject;
-                        clone_box.transform.parent = transform;
+                        //clone_box.transform.parent = transform;
                         //clone_box.GetComponent<MiniGameManager>().randomNum = Random.Range(0, 3);
                     }
                     else if (caveMap[i, j] == 3)
