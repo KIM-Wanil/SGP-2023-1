@@ -23,7 +23,7 @@ public class Bulb : MonoBehaviour
         if (isOn)
         {
             isOn = false;
-            this.GetComponent<Image>().color = new Color(0.0f, 0.0f, 0.0f);
+            this.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
         }
 
         else if (!isOn)
@@ -42,6 +42,6 @@ public class Bulb : MonoBehaviour
     {
 
         isOn = false;
-        this.GetComponent<Image>().color = new Color(0.0f, 0.0f, 0.0f);
+        this.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
     }
 }

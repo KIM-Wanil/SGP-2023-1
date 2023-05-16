@@ -7,7 +7,6 @@ public class PlayerControl : MonoBehaviour
     public GameObject cam;
     public bool isActionProgress;
     public bool getCurse;
-    public int life;
     
     [SerializeField] float speed;
     //슬로우를 위해 만든 speed저장 변수
@@ -15,17 +14,13 @@ public class PlayerControl : MonoBehaviour
     float slowTimer;
     GameObject lattern;
 
-    public UIManager uimanager;
     void Start () 
     {
-        uimanager = GameObject.Find("EventSystem").GetComponent<UIManager>();
         cam = Resources.Load<GameObject>("Prefabs/Cam");
         cam = Instantiate(cam);
 
         isActionProgress = false;
         getCurse = false;
-
-        life = uimanager.life;
         speed = 3f;
         tempSpeed = speed;
         slowTimer = 0f;
@@ -45,10 +40,15 @@ public class PlayerControl : MonoBehaviour
 
         if (getCurse)
             Cursed();
-        if(life<=0)
-        {
-            SceneManager.LoadScene("Fail_Stage");
-        }
+
+        //if (Input.GetKeyDown(KeyCode.Z))
+        //{
+        //    GameManager.instance.lostLife();
+        //}
+        //if (Input.GetKeyDown(KeyCode.X))
+        //{
+        //    GameManager.instance.talismanCount++;
+        //}
     }
 
     void AttachCam()

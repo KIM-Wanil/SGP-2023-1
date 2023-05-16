@@ -2276,7 +2276,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "\uC774\uB3D9 : \uBC29\uD5A5\uD0A4\n\uB79C\uD134:Q\n\uBD80\uC801:W\n\uC740\uC2E0\uCC98
-    \uC228\uAE30,\uC0C1\uC790 \uC5F4\uAE30,\uC544\uC774\uD15C\uC90D\uAE30:F"
+    \uC228\uAE30,\uC0C1\uC790 \uC5F4\uAE30,\uC544\uC774\uD15C\uC90D\uAE30:F\n\uBBF8\uB2C8\uAC8C\uC784:\uB9C8\uC6B0\uC2A4
+    \uC88C\uD074\uB9AD, \uC2A4\uD398\uC774\uC2A4\uBC14"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a6eafe503c34ff441ac2db6ea70628e7, type: 2}
   m_sharedMaterial: {fileID: -1886989979577671642, guid: a6eafe503c34ff441ac2db6ea70628e7, type: 2}
@@ -2382,7 +2383,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 0.21
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

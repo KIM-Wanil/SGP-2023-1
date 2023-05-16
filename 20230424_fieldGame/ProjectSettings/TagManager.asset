@@ -9,6 +9,8 @@ TagManager:
   - Ghost
   - Jewel
   - GhostDetect
+  - Altar
+  - Wall
   layers:
   - Default
   - TransparentFX

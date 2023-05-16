@@ -14,12 +14,13 @@ public class RandomReward : MonoBehaviour
     GameObject jewelObj;
     PlayerControl player;
     PlayerInteractive interactive;
-
+    private UIManager uiManager;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        uiManager = GameObject.Find("EventSystem").GetComponent<UIManager>();
         jewelObj = Resources.Load<GameObject>("Prefabs/Jewel");
         player = GameObject.Find("Player").GetComponent<PlayerControl>();
         interactive = GameObject.Find("Player").GetComponent<PlayerInteractive>();
@@ -94,6 +95,7 @@ public class RandomReward : MonoBehaviour
         int box = boxList[interactive.openBoxCount];
         if (box == 0)
         {
+            uiManager.systemText.text = "¿Øπ∞ »πµÊ";
             Debug.Log("you get jewel");
             interactive.openBoxCount++;
             Instantiate(jewelObj, player.transform.position + player.transform.forward, player.transform.rotation);
@@ -101,6 +103,7 @@ public class RandomReward : MonoBehaviour
         }
         else if (box == 1)
         {
+            uiManager.systemText.text = "¿Ãµø º”µµ ∞®º“";
             Debug.Log("you are cursed");
             interactive.openBoxCount++;
             player.getCurse = true;
@@ -108,10 +111,16 @@ public class RandomReward : MonoBehaviour
         }
         else
         {
+            uiManager.systemText.text = "∫Œ¿˚ »πµÊ";
             Debug.Log("you get talisman");
             interactive.openBoxCount++;
-            interactive.talismanCount++;
+            GameManager.instance.talismanCount++;
             interactive.gameClear = false;
         }
+        Invoke("initSystemText", 3f);
+    }
+    void initSystemText()
+    {
+        uiManager.systemText.text = "";
     }
 }

@@ -4,7 +4,7 @@ using TMPro;
 public class TimingGame : MonoBehaviour
 {
 
-    private const float TIME = 100f;
+    private const float TIME = 7f;
     private const int COUNT = 3;
     private float speed = 300f;
     private int score = 0;
@@ -183,7 +183,7 @@ public class TimingGame : MonoBehaviour
         Destroy(gauge);
         Destroy(clock);
         Destroy(hand);
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
         Debug.Log("GameClear");
     }
 }

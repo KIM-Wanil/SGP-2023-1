@@ -10,10 +10,10 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI jewelText;
     public TextMeshProUGUI talismanCountText;
-    public int jewelCount = 0;
-    public int allJewelCount = 3;
+    public TextMeshProUGUI systemText;
+    public int life;
     public int timer = 0;
-    public int life = 3;
+
 
     public GameObject heartImage;
     public GameObject[] hearts;
@@ -25,11 +25,14 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("SceneStart");
+        life = GameManager.instance.life;
         player = GameObject.Find("Player").gameObject;
         canvas = GameObject.Find("Canvas").gameObject;
         jewelText = canvas.transform.Find("JewelText").GetComponent<TextMeshProUGUI>();
         timerText = canvas.transform.Find("TimerText").GetComponent<TextMeshProUGUI>();
         talismanCountText = canvas.transform.Find("talismanIcon").Find("CountText").GetComponent<TextMeshProUGUI>();
+        systemText = canvas.transform.Find("SystemText").GetComponent<TextMeshProUGUI>();
         StartCoroutine(TimerCoroution());       
         heartImage = Resources.Load<GameObject>("Images/HeartImage");
         hearts = new GameObject[3];//index0~3:spawn skill //index4~7:combat skill
@@ -44,19 +47,16 @@ public class UIManager : MonoBehaviour
         }
         for (int i = 0; i < life; i++)
         {
-            MakeSkillButton(i);
+            MakeHeartIcon(i);
         }
     }
     public void Update()
     {
-        jewelText.text = "Goals : " + jewelCount.ToString() + "/" + allJewelCount.ToString();
-        talismanCountText.text = player.GetComponent<PlayerInteractive>().talismanCount.ToString();
-        if(jewelCount>=allJewelCount)
-        {
-            SceneManager.LoadScene("Clear_Stage");
-        }
+        jewelText.text = "Goals : " + GameManager.instance.jewelCount.ToString() + "/" + GameManager.instance.allJewelCount.ToString();
+        talismanCountText.text = GameManager.instance.talismanCount.ToString();
+        
     }
-    public void MakeSkillButton(int num)
+    public void MakeHeartIcon(int num)
     {
         hearts[num] = (GameObject)Instantiate(heartImage);
         hearts[num].transform.SetParent(canvas.transform);
@@ -72,5 +72,9 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         StartCoroutine(TimerCoroution());
+    }
+    public void RemoveHearts(int num)
+    {
+        Destroy(hearts[num].gameObject);
     }
 }

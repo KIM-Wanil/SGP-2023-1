@@ -12,6 +12,7 @@ public class MiniGameManager : MonoBehaviour
     DungeonGeneratorByBinarySpacePartitioning.MapGenerator mapgenerator;
 
     int randomNum;
+    //public bool isOn = false;
 
     void Start()
     {
@@ -25,23 +26,32 @@ public class MiniGameManager : MonoBehaviour
 
     void Update()
     {
-        if(interactive.check_box)
-        {
-            RandomGameGenerate();
-        }
+        //if(interactive.check_box)
+        //{
+        //    RandomGameGenerate();
+        //}
     }
 
-    void RandomGameGenerate()
+    public void RandomGameGenerate()
     {
         player.isActionProgress = true;
         randomNum = Random.Range(0, 3);
 
         if (randomNum == 0)
-            Instantiate(alphabetgameObj);
+        {
+            GameObject go = Instantiate(alphabetgameObj);
+            go.transform.SetParent(this.transform);
+        }
         else if (randomNum == 1)
-            Instantiate(timinggameObj);
+        {
+            GameObject go = Instantiate(timinggameObj);
+            go.transform.SetParent(this.transform);
+        }
         else if (randomNum == 2)
-            Instantiate(lightgameObj);
+        {
+            GameObject go = Instantiate(lightgameObj);
+            go.transform.SetParent(this.transform);
+        }
 
         interactive.check_box = false;
     }

@@ -7,8 +7,7 @@ public class GhostSpawner : MonoBehaviour
     private GameObject ghostPrefab;
     public GameObject ghost;
     private GameObject player;
-    private bool isGhostOn;
-    public float spawnTime = 20f;
+    public float spawnTime ;
     private float spawnTimeLeft;
     // Start is called before the first frame update
     void Start()
@@ -18,6 +17,7 @@ public class GhostSpawner : MonoBehaviour
         //ghost = Instantiate(ghostPrefab,this.transform);
         //ghost.SetActive(false);
         //isGhostOn = false;
+        spawnTime = GameManager.instance.spawnTime;
         spawnTimeLeft = spawnTime;
     }
 
