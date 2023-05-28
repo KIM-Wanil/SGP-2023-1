@@ -24,7 +24,7 @@ public class PlayerInteractive : MonoBehaviour
         ghost = null;
         player = GameObject.Find("Player").GetComponent<PlayerControl>();
 
-        interact_distance = 1f;
+        interact_distance = 2f;
         check_box = false;
         gameClear = false;
 
@@ -50,6 +50,7 @@ public class PlayerInteractive : MonoBehaviour
                     return;
                 }
                 if (ghost == null) return;
+
                 if (Vector3.Distance(player.transform.position, ghost.transform.position) < 3f)
                 {
                     Debug.Log("Destroy ghost by talisman");
@@ -70,11 +71,12 @@ public class PlayerInteractive : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.F) && !GameManager.instance.lanternOn)
                     GameManager.instance.explainBoxOpenRule();
+
                 if (Input.GetKeyDown(KeyCode.F) && !GameManager.instance.hide && GameManager.instance.lanternOn && !GameManager.instance.usedEscape)
                     col.transform.GetComponent<MiniGameManager>().RandomGameGenerate();
             }
 
-            if(col.CompareTag("Hideout"))
+            else if(col.CompareTag("Hideout"))
             {
                 if (Input.GetKeyDown(KeyCode.F) && carriedJewel == null && closestJewel == null)
                 {

@@ -86,7 +86,6 @@ public class AlphabetGame : MonoBehaviour
         // 게임이 종료되었으면 입력을 받지 않음
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-
             GameManager.instance.escapedFromMinigame();
             GameOver();
             Destroy(gameObject);
