@@ -24,7 +24,7 @@ public class PlayerInteractive : MonoBehaviour
         ghost = null;
         player = GameObject.Find("Player").GetComponent<PlayerControl>();
 
-        interact_distance = 2f;
+        interact_distance = 0.5f;
         check_box = false;
         gameClear = false;
 
