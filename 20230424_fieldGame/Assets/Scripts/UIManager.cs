@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI jewelText;
     public TextMeshProUGUI talismanCountText;
     public TextMeshProUGUI systemText;
+    public TextMeshProUGUI warningText;
+    public TextMeshProUGUI explainText;
     public int life;
     public int timer = 0;
 
@@ -33,6 +35,8 @@ public class UIManager : MonoBehaviour
         timerText = canvas.transform.Find("TimerText").GetComponent<TextMeshProUGUI>();
         talismanCountText = canvas.transform.Find("talismanIcon").Find("CountText").GetComponent<TextMeshProUGUI>();
         systemText = canvas.transform.Find("SystemText").GetComponent<TextMeshProUGUI>();
+        warningText = canvas.transform.Find("WarningText").GetComponent<TextMeshProUGUI>();
+        explainText = canvas.transform.Find("ExplainText").GetComponent<TextMeshProUGUI>();
         StartCoroutine(TimerCoroution());       
         heartImage = Resources.Load<GameObject>("Images/HeartImage");
         hearts = new GameObject[3];//index0~3:spawn skill //index4~7:combat skill

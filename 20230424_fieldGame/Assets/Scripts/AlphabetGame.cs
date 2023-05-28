@@ -25,6 +25,7 @@ public class AlphabetGame : MonoBehaviour
     //2023/05/14 장진혁추가
     PlayerControl player;
     PlayerInteractive interactive;
+    UIManager uiManager;
 
     // 랜덤으로 알파벳 6개를 생성하는 함수
     private void GenerateAlphabets()
@@ -67,7 +68,7 @@ public class AlphabetGame : MonoBehaviour
         //2023/05/14 장진혁 추가
         player = GameObject.Find("Player").GetComponent<PlayerControl>();
         interactive = GameObject.Find("Player").GetComponent<PlayerInteractive>();
-
+        uiManager = GameObject.Find("EventSystem").GetComponent<UIManager>();
     }
     public void MakeKeyButton(int num)
     {
@@ -81,6 +82,7 @@ public class AlphabetGame : MonoBehaviour
     // 키 입력 처리
     private void Update()
     {
+        uiManager.explainText.text = "화면에 나온 키를 순서대로 입력하세요!";
         // 게임이 종료되었으면 입력을 받지 않음
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -125,6 +127,7 @@ public class AlphabetGame : MonoBehaviour
     {
         //2023/05/14 장진혁추가
         player.isActionProgress = false;
+        uiManager.explainText.text = "";
 
         foreach (GameObject key in keys)
         {
@@ -159,6 +162,7 @@ public class AlphabetGame : MonoBehaviour
         //2023/05/14 장진혁추가
         player.isActionProgress = false;
         interactive.gameClear = true;
+        uiManager.explainText.text = "";
 
         foreach (GameObject key in keys)
         { 

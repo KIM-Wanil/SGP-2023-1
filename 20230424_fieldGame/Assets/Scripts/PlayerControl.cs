@@ -43,12 +43,9 @@ public class PlayerControl : MonoBehaviour
 
         //if (Input.GetKeyDown(KeyCode.Z))
         //{
-        //    GameManager.instance.lostLife();
+        //    GameManager.instance.GetJewel();
         //}
-        //if (Input.GetKeyDown(KeyCode.X))
-        //{
-        //    GameManager.instance.talismanCount++;
-        //}
+
     }
 
     void AttachCam()
@@ -75,9 +72,15 @@ public class PlayerControl : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Q))
         {
             if (!lattern.activeSelf)
+            {
                 lattern.SetActive(true);
+                GameManager.instance.lanternOn = true;
+            }
             else
+            {
                 lattern.SetActive(false);
+                GameManager.instance.lanternOn = false;
+            }
         }
     }
 

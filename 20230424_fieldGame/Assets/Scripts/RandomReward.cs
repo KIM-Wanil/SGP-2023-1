@@ -9,7 +9,6 @@ public class RandomReward : MonoBehaviour
     int box = 16;
     int jewel = 3;
     int curse = 5;
-    //int tailsman = 8;
 
     GameObject jewelObj;
     PlayerControl player;
@@ -37,7 +36,7 @@ public class RandomReward : MonoBehaviour
         ShuffleBoxes();
 
         for (int i = 0; i < box; i++)
-            Debug.Log(boxList[i]);
+            Debug.Log("boxList : " + boxList[i]);
     }
 
     // Update is called once per frame

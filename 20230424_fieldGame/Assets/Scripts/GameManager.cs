@@ -11,6 +11,8 @@ public class GameManager : Singleton<GameManager>
     public int allJewelCount { get; set; } = 3;
     public float spawnTime { get; set; } = 20f;
     public int talismanCount { get; set; } = 1;
+    public bool hide;
+    public bool lanternOn;
     private void Start()
     {
         initScene();
@@ -23,6 +25,8 @@ public class GameManager : Singleton<GameManager>
         allJewelCount = 3;
         spawnTime = 20f;
         talismanCount = 1;
+        hide = false;
+        lanternOn = false;
     }
     public void GetJewel()
     {
@@ -43,6 +47,14 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public void decreaseSpawnTime()
+    {
+        if (spawnTime > 5.0f)
+            spawnTime -= 0.1f;
+
+        Debug.Log("SpawnTime: " + spawnTime);
+    }
+
     ////////////Scene 로드 때마다 호출
     void OnEnable()
     {
@@ -55,7 +67,7 @@ public class GameManager : Singleton<GameManager>
     {
         initScene();
         Debug.Log("OnSceneLoaded: " + scene.name);
-        Debug.Log(mode);
+        //Debug.Log(mode);
     }
     void OnDisable()
     {

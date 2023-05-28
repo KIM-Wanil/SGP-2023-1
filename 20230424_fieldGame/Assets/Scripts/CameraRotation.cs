@@ -9,21 +9,20 @@ public class CameraRotation : MonoBehaviour
 		get { return sensitivity; }
 		set { sensitivity = value; }
 	}
-	[SerializeField] float sensitivity = 9f;
+	[SerializeField] float sensitivity = 2f;
 	[Tooltip("Limits vertical camera rotation. Prevents the flipping that happens when rotation goes above 90.")]
 	[Range(0f, 90f)] [SerializeField] float yRotationLimit = 88f;
 
 	Vector2 rotation = Vector2.zero;
 	const string xAxis = "Mouse X"; //Strings in direct code generate garbage, storing and re-using them creates no garbage
 	const string yAxis = "Mouse Y";
-	public bool isOn = false;
+
     private void Start()
     {
-		isOn = false;
+
 	}
     void Update()
 	{
-		if (!isOn) return;
 		rotation.x += Input.GetAxis(xAxis) * sensitivity;
 		rotation.y += Input.GetAxis(yAxis) * sensitivity;
 		rotation.y = Mathf.Clamp(rotation.y, -yRotationLimit, yRotationLimit);

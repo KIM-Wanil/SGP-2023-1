@@ -9,10 +9,8 @@ public class MiniGameManager : MonoBehaviour
     GameObject alphabetgameObj;
     GameObject timinggameObj;
     GameObject lightgameObj;
-    DungeonGeneratorByBinarySpacePartitioning.MapGenerator mapgenerator;
 
     int randomNum;
-    //public bool isOn = false;
 
     void Start()
     {
@@ -21,15 +19,10 @@ public class MiniGameManager : MonoBehaviour
         alphabetgameObj = Resources.Load<GameObject>("Prefabs/AlphabetGameGenerator");
         timinggameObj = Resources.Load<GameObject>("Prefabs/TimingGameGenerator");
         lightgameObj = Resources.Load<GameObject>("Prefabs/LightGameGenerator");
-        mapgenerator = GameObject.Find("EventSystem").GetComponent<DungeonGeneratorByBinarySpacePartitioning.MapGenerator>();
     }
 
     void Update()
     {
-        //if(interactive.check_box)
-        //{
-        //    RandomGameGenerate();
-        //}
     }
 
     public void RandomGameGenerate()
