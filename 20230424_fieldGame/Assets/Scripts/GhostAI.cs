@@ -16,10 +16,10 @@ public class GhostAI : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
 
         //보석 갯수에 따른 귀신 스피드 조절
-        if (GameManager.instance.jewelCount == 0) nav.speed = 2.5f;
-        else if (GameManager.instance.jewelCount == 1) nav.speed = 2.75f;
-        else if (GameManager.instance.jewelCount == 2) nav.speed = 3.0f;
-        else nav.speed = 3.25f;
+        if (GameManager.instance.jewelCount == 0) nav.speed = 3.0f;
+        else if (GameManager.instance.jewelCount == 1) nav.speed = 3.5f;
+        else if (GameManager.instance.jewelCount == 2) nav.speed = 4.0f;
+        else nav.speed = 3.0f;
         StartChase();
     }
 
@@ -60,7 +60,7 @@ public class GhostAI : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-
+            GameManager.instance.dead = true;
             GameManager.instance.lostLife();
             collision.collider.gameObject.transform.position = new Vector3(23f, 1f, 23f);
             Destroy(this.gameObject);
@@ -71,7 +71,6 @@ public class GhostAI : MonoBehaviour
     {
         if(other.CompareTag("Hideout"))
         {
-            Debug.Log("trigger hide");
             if (GameManager.instance.hide)
                 DestroyGhost();
         }

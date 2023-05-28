@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class PlayerInteractive : MonoBehaviour
 {
-    public bool check_box, pickUpJewel;
+    public bool check_box;
     public bool gameClear;
-    public bool createJewel;
 
     public int openBoxCount;
 
     PlayerControl player;
-    GhostSpawner ghostSpawner;
 
     GameObject closestJewel = null;
     GameObject carriedJewel = null;
@@ -25,7 +23,6 @@ public class PlayerInteractive : MonoBehaviour
     {
         ghost = null;
         player = GameObject.Find("Player").GetComponent<PlayerControl>();
-        ghostSpawner = GameObject.Find("GhostSpawner").GetComponent<GhostSpawner>();
 
         interact_distance = 1f;
         check_box = false;
@@ -36,28 +33,30 @@ public class PlayerInteractive : MonoBehaviour
 
     void Update()
     {
-        if(!player.isActionProgress)
-            CheckCol();
-        pick_or_drop_control();
-
-        if (GameManager.instance.talismanCount > 0 && Input.GetKeyDown(KeyCode.W))
+        if(!player.isActionProgress && !GameManager.instance.usedEscape)
         {
-            try
+            CheckCol();
+            pick_or_drop_control();
+
+            if (GameManager.instance.talismanCount > 0 && Input.GetKeyDown(KeyCode.W))
             {
-                ghost = GameObject.FindWithTag("Ghost").gameObject;
-            }
-            catch
-            {
-                ghost = null;
-                return;
-            }
-            if (ghost == null) return;
-            if (Vector3.Distance(player.transform.position, ghost.transform.position) < 3f)
-            {
-                Debug.Log("Destroy ghost by talisman");
-                Destroy(ghost.gameObject);
-                ghost.GetComponent<GhostAI>().DestroyGhost();
-                GameManager.instance.talismanCount--;
+                try
+                {
+                    ghost = GameObject.FindWithTag("Ghost").gameObject;
+                }
+                catch
+                {
+                    ghost = null;
+                    return;
+                }
+                if (ghost == null) return;
+                if (Vector3.Distance(player.transform.position, ghost.transform.position) < 3f)
+                {
+                    Debug.Log("Destroy ghost by talisman");
+                    Destroy(ghost.gameObject);
+                    ghost.GetComponent<GhostAI>().DestroyGhost();
+                    GameManager.instance.talismanCount--;
+                }
             }
         }
     }
@@ -75,9 +74,9 @@ public class PlayerInteractive : MonoBehaviour
 
             if(col.CompareTag("Hideout"))
             {
-                closestHideout = col.transform;
-                if (Input.GetKeyDown(KeyCode.F))
+                if (Input.GetKeyDown(KeyCode.F) && carriedJewel == null && closestJewel == null)
                 {
+                    closestHideout = col.transform;
                     GameManager.instance.hide = true;
                 }
             }
