@@ -113,7 +113,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensitivity: 2
   yRotationLimit: 88
-  isOn: 0
 --- !u!114 &6440016506778500993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +125,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd880437843097b48a812c379b723ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 9
-  yRotationLimit: 88
   ghost: {fileID: 0}

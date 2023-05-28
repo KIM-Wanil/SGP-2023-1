@@ -8,12 +8,16 @@ public class GhostAI : MonoBehaviour
     GameObject player;
     NavMeshAgent nav;
     public GameObject talismanEffect;
+    AudioSource heartBeat;
 
     void Start()
     {
         talismanEffect = Resources.Load<GameObject>("Prefabs/TalismanEffect");
         player = GameObject.Find("Player");
         nav = GetComponent<NavMeshAgent>();
+        heartBeat = GetComponent<AudioSource>();
+
+        heartBeat.Play();
 
         //보석 갯수에 따른 귀신 스피드 조절
         if (GameManager.instance.jewelCount == 0) nav.speed = 3.0f;
@@ -60,6 +64,7 @@ public class GhostAI : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
+            collision.collider.gameObject.GetComponent<AudioSource>().Play();
             collision.collider.gameObject.transform.Find("Lantern").gameObject.SetActive(false);
             GameManager.instance.dead = true;
             GameManager.instance.lostLife();
