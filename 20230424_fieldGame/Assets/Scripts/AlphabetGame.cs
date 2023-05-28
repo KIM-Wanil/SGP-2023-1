@@ -93,7 +93,15 @@ public class AlphabetGame : MonoBehaviour
 
             return;
         }
-            // 현재 입력된 키와 현재 알파벳이 일치하면 다음 알파벳으로 넘어감
+        // 죽었는데 게임중이었다면 게임 삭제
+        if (GameManager.instance.playMinigame && GameManager.instance.dead)
+        {
+            GameOver();
+            Destroy(gameObject);
+
+            return;
+        }
+        // 현재 입력된 키와 현재 알파벳이 일치하면 다음 알파벳으로 넘어감
         if (Input.anyKeyDown)
         {
             if (Input.inputString.ToUpper() == currentAlphabets[currentOrder].ToString())
@@ -129,6 +137,7 @@ public class AlphabetGame : MonoBehaviour
     {
         //2023/05/14 장진혁추가
         player.isActionProgress = false;
+        GameManager.instance.dead = false;
         uiManager.explainText.text = "";
 
         foreach (GameObject key in keys)

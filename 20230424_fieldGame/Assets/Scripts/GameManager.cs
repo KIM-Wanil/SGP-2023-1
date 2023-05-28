@@ -11,9 +11,13 @@ public class GameManager : Singleton<GameManager>
     public int allJewelCount { get; set; } = 3;
     public float spawnTime { get; set; } = 20f;
     public int talismanCount { get; set; } = 1;
+
     public bool hide;
     public bool lanternOn;
     public bool usedEscape;
+    public bool playMinigame;
+    public bool dead;
+
     private void Start()
     {
         initScene();
@@ -29,6 +33,8 @@ public class GameManager : Singleton<GameManager>
         hide = false;
         lanternOn = false;
         usedEscape = false;
+        playMinigame = false;
+        dead = false;
     }
     public void GetJewel()
     {

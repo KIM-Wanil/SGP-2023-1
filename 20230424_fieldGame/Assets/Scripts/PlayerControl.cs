@@ -58,7 +58,7 @@ public class PlayerControl : MonoBehaviour
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
-        float rotation_speed = 5f;
+        float rotation_speed = 7.5f;
         Vector3 dir = new Vector3(h, 0, v);
         if (!(h == 0 && v == 0))
         {

@@ -113,6 +113,14 @@ public class LightGame : MonoBehaviour
 
             return;
         }
+        // 죽었는데 게임중이었다면 게임 삭제
+        if (GameManager.instance.playMinigame && GameManager.instance.dead)
+        {
+            GameOver();
+            Destroy(gameObject);
+
+            return;
+        }
         // 게임이 종료되었으면 입력을 받지 않음       
         if (!isStart)
         {
@@ -156,6 +164,7 @@ public class LightGame : MonoBehaviour
     {
         //2023/05/14 장진혁추가
         player.isActionProgress = false;
+        GameManager.instance.dead = false;
         uiManager.explainText.text = "";
 
         foreach (GameObject key in bulbs)

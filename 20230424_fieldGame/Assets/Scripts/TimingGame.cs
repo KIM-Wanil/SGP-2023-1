@@ -109,6 +109,14 @@ public class TimingGame : MonoBehaviour
 
             return;
         }
+        // 죽었는데 게임중이었다면 게임 삭제
+        if (GameManager.instance.playMinigame && GameManager.instance.dead)
+        {
+            GameOver();
+            Destroy(gameObject);
+
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             float handZ = (hand.transform.eulerAngles.z + 360f) % 360;
@@ -159,6 +167,7 @@ public class TimingGame : MonoBehaviour
     {
         //2023/05/14 장진혁추가
         player.isActionProgress = false;
+        GameManager.instance.dead = false;
         uiManager.explainText.text = "";
 
         foreach (GameObject part in partition)
