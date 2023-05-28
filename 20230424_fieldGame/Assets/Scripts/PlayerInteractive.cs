@@ -69,7 +69,7 @@ public class PlayerInteractive : MonoBehaviour
         {
             if(col.CompareTag("Box"))
             {
-                if (Input.GetKeyDown(KeyCode.F) && !GameManager.instance.hide && GameManager.instance.lanternOn)
+                if (Input.GetKeyDown(KeyCode.F) && !GameManager.instance.hide && GameManager.instance.lanternOn && !GameManager.instance.usedEscape)
                     col.transform.GetComponent<MiniGameManager>().RandomGameGenerate();
             }
 

@@ -7,7 +7,7 @@ public class Particle : MonoBehaviour
 {
     private void Start()
     {
-        Invoke("destroyParticle", 3f);
+        Invoke("destroyParticle", 2f);
     }
     private void destroyParticle()
     {

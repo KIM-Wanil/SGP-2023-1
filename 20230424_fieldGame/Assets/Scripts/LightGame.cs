@@ -106,6 +106,8 @@ public class LightGame : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+
+            GameManager.instance.escapedFromMinigame();
             GameOver();
             Destroy(gameObject);
 

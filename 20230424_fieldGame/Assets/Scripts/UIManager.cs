@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI talismanCountText;
     public TextMeshProUGUI systemText;
     public TextMeshProUGUI warningText;
+    public TextMeshProUGUI warningText2;
     public TextMeshProUGUI explainText;
     public int life;
     public int timer = 0;
@@ -36,6 +37,7 @@ public class UIManager : MonoBehaviour
         talismanCountText = canvas.transform.Find("talismanIcon").Find("CountText").GetComponent<TextMeshProUGUI>();
         systemText = canvas.transform.Find("SystemText").GetComponent<TextMeshProUGUI>();
         warningText = canvas.transform.Find("WarningText").GetComponent<TextMeshProUGUI>();
+        warningText2 = canvas.transform.Find("WarningText2").GetComponent<TextMeshProUGUI>();
         explainText = canvas.transform.Find("ExplainText").GetComponent<TextMeshProUGUI>();
         StartCoroutine(TimerCoroution());       
         heartImage = Resources.Load<GameObject>("Images/HeartImage");

@@ -13,6 +13,7 @@ public class GameManager : Singleton<GameManager>
     public int talismanCount { get; set; } = 1;
     public bool hide;
     public bool lanternOn;
+    public bool usedEscape;
     private void Start()
     {
         initScene();
@@ -27,6 +28,7 @@ public class GameManager : Singleton<GameManager>
         talismanCount = 1;
         hide = false;
         lanternOn = false;
+        usedEscape = false;
     }
     public void GetJewel()
     {
@@ -47,12 +49,18 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void decreaseSpawnTime()
+    public void escapedFromMinigame()
     {
-        if (spawnTime > 5.0f)
-            spawnTime -= 0.1f;
+        usedEscape = true;
+        uiManager.warningText2.text = "저주로 인해 움직일 수 없습니다!";
+        StartCoroutine(stunPlayer());
+    }
 
-        Debug.Log("SpawnTime: " + spawnTime);
+    IEnumerator stunPlayer()
+    {
+        yield return new WaitForSeconds(2.0f);
+        uiManager.warningText2.text = "";
+        usedEscape = false;
     }
 
     ////////////Scene 로드 때마다 호출
