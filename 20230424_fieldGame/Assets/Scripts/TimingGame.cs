@@ -103,6 +103,7 @@ public class TimingGame : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            GameManager.instance.escapedFromMinigame();
             GameOver();
             Destroy(gameObject);
 

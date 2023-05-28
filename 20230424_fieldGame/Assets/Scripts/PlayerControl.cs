@@ -32,7 +32,7 @@ public class PlayerControl : MonoBehaviour
     void Update () 
     {
         AttachCam();
-        if(!isActionProgress)
+        if(!isActionProgress && !GameManager.instance.usedEscape)
         {
             Move();
             Lantern();
