@@ -4,11 +4,4 @@ using UnityEngine;
 
 public class Lantern : MonoBehaviour
 {
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-    }
 }

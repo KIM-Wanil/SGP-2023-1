@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInteractive : MonoBehaviour
 {
-    public bool hide, check_box, pickUpJewel;
+    public bool check_box, pickUpJewel;
     public bool gameClear;
     public bool createJewel;
 
@@ -17,37 +17,29 @@ public class PlayerInteractive : MonoBehaviour
     GameObject carriedJewel = null;
     GameObject ghost;
     bool canOffer = false; 
-    //GameObject Hideimg;
-    float interact_distance;
-
+    [SerializeField]float interact_distance;
+    public Transform closestHideout;
     //20230515 ±Ëøœ¿œ√ﬂ∞°
     
-
     void Start()
     {
         ghost = null;
         player = GameObject.Find("Player").GetComponent<PlayerControl>();
         ghostSpawner = GameObject.Find("GhostSpawner").GetComponent<GhostSpawner>();
 
-        interact_distance = 3f;
-        hide = false;
+        interact_distance = 1f;
         check_box = false;
         gameClear = false;
 
         openBoxCount = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(!player.isActionProgress)
-            CheckRay();
+            CheckCol();
         pick_or_drop_control();
 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            GameManager.instance.talismanCount++;
-        }
         if (GameManager.instance.talismanCount > 0 && Input.GetKeyDown(KeyCode.W))
         {
             try
@@ -70,39 +62,30 @@ public class PlayerInteractive : MonoBehaviour
         }
     }
 
-    void CheckRay()
+    void CheckCol()
     {
-        RaycastHit hit;
-
-        if(Physics.Raycast(player.transform.position, player.transform.forward, out hit, interact_distance))
+        var colliders = Physics.OverlapSphere(this.transform.position, interact_distance);
+        foreach(Collider col in colliders)
         {
-            if (hit.collider.CompareTag("Box"))
+            if(col.CompareTag("Box"))
             {
-                if (Input.GetKeyDown(KeyCode.F))
-                    hit.collider.transform.GetComponent<MiniGameManager>().RandomGameGenerate();
-                    //check_box = true;
-                //if (gameClear)
-                //    Destroy(hit.collider.gameObject);    
+                if (Input.GetKeyDown(KeyCode.F) && !GameManager.instance.hide && GameManager.instance.lanternOn)
+                    col.transform.GetComponent<MiniGameManager>().RandomGameGenerate();
             }
 
-            if (hit.collider.CompareTag("Hideout"))
+            if(col.CompareTag("Hideout"))
             {
+                closestHideout = col.transform;
                 if (Input.GetKeyDown(KeyCode.F))
-                    hide = true;
+                {
+                    GameManager.instance.hide = true;
+                }
             }
-             
         }
-
     }
     private void OnTriggerStay(Collider other)
     {
         GameObject other_go = other.gameObject;
-
-        //if (other.CompareTag("Box"))
-        //{
-        //    if (gameClear)
-        //        Destroy(other.gameObject);
-        //}
 
         if (other.CompareTag("Jewel"))
         {
@@ -125,16 +108,6 @@ public class PlayerInteractive : MonoBehaviour
                 canOffer = true;
             }
         }
-
-        //if(other.CompareTag("Ghost"))
-        //{
-        //    if(talismanCount > 0 && Input.GetKeyDown(KeyCode.W))
-        //    {
-        //        Debug.Log("Ω∏!!!!!");
-        //        Destroy(other_go);
-        //        talismanCount--;
-        //    }
-        //}
     }
 
 

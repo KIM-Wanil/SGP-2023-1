@@ -26,6 +26,7 @@ public class TimingGame : MonoBehaviour
     //2023/05/14 장진혁추가
     PlayerControl player;
     PlayerInteractive interactive;
+    UIManager uiManager;
 
     private void GeneratePartition()
     {
@@ -83,6 +84,7 @@ public class TimingGame : MonoBehaviour
         //2023/05/14 장진혁추가
         player = GameObject.Find("Player").GetComponent<PlayerControl>();
         interactive = GameObject.Find("Player").GetComponent<PlayerInteractive>();
+        uiManager = GameObject.Find("EventSystem").GetComponent<UIManager>();
     }
 
     private void StopSpeed()
@@ -96,7 +98,7 @@ public class TimingGame : MonoBehaviour
     // 키 입력 처리
     private void Update()
     {
-
+        uiManager.explainText.text = "타이밍에 맞춰서 스페이스바를 누르세요!";
         hand.transform.Rotate(0f, 0f, -speed * Time.deltaTime);
         
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -156,6 +158,7 @@ public class TimingGame : MonoBehaviour
     {
         //2023/05/14 장진혁추가
         player.isActionProgress = false;
+        uiManager.explainText.text = "";
 
         foreach (GameObject part in partition)
         {
@@ -175,6 +178,7 @@ public class TimingGame : MonoBehaviour
         //2023/05/14 장진혁추가
         player.isActionProgress = false;
         interactive.gameClear = true;
+        uiManager.explainText.text = "";
 
         foreach (GameObject part in partition)
         {

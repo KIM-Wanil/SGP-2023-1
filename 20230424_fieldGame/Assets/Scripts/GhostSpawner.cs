@@ -7,36 +7,43 @@ public class GhostSpawner : MonoBehaviour
     private GameObject ghostPrefab;
     public GameObject ghost;
     private GameObject player;
-    public float spawnTime ;
+    private UIManager uiManager;
+    public float spawnTime;
     private float spawnTimeLeft;
-    // Start is called before the first frame update
+
     void Start()
     {
         player = GameObject.Find("Player");
+        uiManager = GameObject.Find("EventSystem").GetComponent<UIManager>();
         ghostPrefab = Resources.Load<GameObject>("Prefabs/Ghost");
-        //ghost = Instantiate(ghostPrefab,this.transform);
-        //ghost.SetActive(false);
-        //isGhostOn = false;
         spawnTime = GameManager.instance.spawnTime;
         spawnTimeLeft = spawnTime;
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (ghost!=null) return;
-        spawnTimeLeft -= Time.deltaTime;
+        if (GameManager.instance.lanternOn)
+            spawnTimeLeft -= 2.0f * Time.deltaTime;
+        else
+            spawnTimeLeft -= Time.deltaTime;
+
         if(spawnTimeLeft<0)
         {
+            Debug.Log("Spawn Ghost");
             SpawnGhost();
             spawnTimeLeft = spawnTime;
         }
     }
     private void SpawnGhost()
     {
+        uiManager.warningText.text = "±Í½Å ÃâÇö!";
         ghost = Instantiate(ghostPrefab, SetPosition(),transform.rotation);
+        Invoke("initWarningText", 3f);
     }
-
+    void initWarningText()
+    {
+        uiManager.warningText.text = "";
+    }
     public Vector3 SetPosition()
     {
         float len = 10f;
@@ -55,7 +62,5 @@ public class GhostSpawner : MonoBehaviour
         {
             return new Vector3(25f, 0f, 25f);
         }
-
     }
-
 }

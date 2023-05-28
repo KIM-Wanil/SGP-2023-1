@@ -24,6 +24,7 @@ public class LightGame : MonoBehaviour
     // 2023/05/14 장진혁추가
     PlayerControl player;
     PlayerInteractive interactive;
+    UIManager uiManager;
 
     // 알파벳을 저장할 배열
     //private char[] alphabets = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
@@ -87,8 +88,7 @@ public class LightGame : MonoBehaviour
         //2023/05/14 장진혁추가
         player = GameObject.Find("Player").GetComponent<PlayerControl>();
         interactive = GameObject.Find("Player").GetComponent<PlayerInteractive>();
-
-
+        uiManager = GameObject.Find("EventSystem").GetComponent<UIManager>();
     }
     public void MakeBulbButton(int num)
     {
@@ -115,7 +115,9 @@ public class LightGame : MonoBehaviour
         if (!isStart)
         {
             return;
-        }      
+        }
+        uiManager.explainText.text = "화면에 나온 빛의 모양을 그대로 누르세요!";
+
         for (int i = 0; i < COUNT_X * COUNT_Y; i++)
         {
             currentBulbStates[i] = bulbs[i].GetComponent<Bulb>().isOn;
@@ -140,6 +142,7 @@ public class LightGame : MonoBehaviour
         }
         timeLeft -= Time.deltaTime;
         bar.fillAmount = timeLeft / timeLimit;
+
         if (timeLeft <= 0f)
         {
             GameOver();
@@ -151,6 +154,7 @@ public class LightGame : MonoBehaviour
     {
         //2023/05/14 장진혁추가
         player.isActionProgress = false;
+        uiManager.explainText.text = "";
 
         foreach (GameObject key in bulbs)
         {
@@ -187,6 +191,7 @@ public class LightGame : MonoBehaviour
         //2023/05/14 장진혁추가
         player.isActionProgress = false;
         interactive.gameClear = true;
+        uiManager.explainText.text = "";
 
         foreach (GameObject bulb in bulbs)
         { 
