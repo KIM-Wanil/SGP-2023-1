@@ -13,6 +13,7 @@ public class PlayerControl : MonoBehaviour
     float tempSpeed;
     float slowTimer;
     GameObject lattern;
+    Rigidbody rigid;
 
     void Start () 
     {
@@ -26,6 +27,7 @@ public class PlayerControl : MonoBehaviour
         slowTimer = 0f;
 
         lattern = GameObject.Find("Player").transform.Find("Lantern").gameObject;
+        rigid = GameObject.Find("Player").GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
@@ -48,6 +50,11 @@ public class PlayerControl : MonoBehaviour
 
     }
 
+    private void FixedUpdate()
+    {
+        rigid.angularVelocity = Vector3.zero;
+    }
+
     void AttachCam()
     {
         cam.transform.position = new Vector3(this.transform.position.x, this.transform.position.y+5f, this.transform.position.z-2.5f);
@@ -56,14 +63,16 @@ public class PlayerControl : MonoBehaviour
 
     void Move()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        float rotation_speed = 7.5f;
-        Vector3 dir = new Vector3(h, 0, v);
-        if (!(h == 0 && v == 0))
+        Vector3 moveDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
+        moveDir *= speed * Time.deltaTime;
+        transform.position += moveDir;
+
+        float rotationSpeed = 0.1f;
+
+        if (moveDir.magnitude > 0.005f)
         {
-            this.transform.position += dir * speed * Time.deltaTime;
-            this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotation_speed);
+            Quaternion q = Quaternion.LookRotation(moveDir, Vector3.up);
+            transform.rotation = Quaternion.Lerp(transform.rotation, q, rotationSpeed);
         }
     }
 
