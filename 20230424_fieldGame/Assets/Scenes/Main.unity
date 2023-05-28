@@ -349,6 +349,9 @@ MonoBehaviour:
   jewelText: {fileID: 0}
   talismanCountText: {fileID: 0}
   systemText: {fileID: 0}
+  warningText: {fileID: 0}
+  warningText2: {fileID: 0}
+  explainText: {fileID: 0}
   life: 3
   timer: 0
   heartImage: {fileID: 0}
@@ -641,6 +644,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fec690559db55cc4eb0c3d9a4e0ba454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hide: 0
+  lanternOn: 0
+  usedEscape: 0
+  playMinigame: 0
+  dead: 0
 --- !u!4 &2085647640
 Transform:
   m_ObjectHideFlags: 0
@@ -726,6 +734,18 @@ PrefabInstance:
     - target: {fileID: 120959934393889580, guid: 17004d8435774064f9eecc9b26afc9ac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 120959934393889582, guid: 17004d8435774064f9eecc9b26afc9ac, type: 3}
+      propertyPath: m_Drag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 120959934393889582, guid: 17004d8435774064f9eecc9b26afc9ac, type: 3}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 120959934393889582, guid: 17004d8435774064f9eecc9b26afc9ac, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17004d8435774064f9eecc9b26afc9ac, type: 3}

@@ -60,6 +60,7 @@ public class GhostAI : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
+            collision.collider.gameObject.transform.Find("Lantern").gameObject.SetActive(false);
             GameManager.instance.dead = true;
             GameManager.instance.lostLife();
             collision.collider.gameObject.transform.position = new Vector3(23f, 1f, 23f);

@@ -55,6 +55,18 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public void explainBoxOpenRule()
+    {
+        uiManager.warningText2.text = "랜턴을 켜고 박스를 확인하세요!";
+        StartCoroutine(clearText());
+    }
+
+    IEnumerator clearText()
+    {
+        yield return new WaitForSeconds(1.0f);
+        uiManager.warningText2.text = "";
+    }
+
     public void escapedFromMinigame()
     {
         usedEscape = true;
