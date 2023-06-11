@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 using System.Linq;
 
 
@@ -32,6 +33,9 @@ namespace DungeonGeneratorByBinarySpacePartitioning
         private GameObject box;
         private GameObject altar;
         private GameObject hideout;
+        private GameObject planePrefab;
+        private GameObject plane =null;
+        private Vector3 _generatePos = new Vector3(25, 0, 25);
         private int[,] caveMap;
 
         private void Awake()
@@ -42,6 +46,8 @@ namespace DungeonGeneratorByBinarySpacePartitioning
             box = Resources.Load<GameObject>("Prefabs/Box");
             altar = Resources.Load<GameObject>("Prefabs/Altar");
             hideout = Resources.Load<GameObject>("Prefabs/Hideout");
+            planePrefab = Resources.Load<GameObject>("Prefabs/Plane");
+            plane = Instantiate(planePrefab, _generatePos, Quaternion.identity);
             //wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
             //wall.transform.localScale = new Vector3(1f, 2f, 1f);
             //wall.GetComponent<Renderer>().material.color = Color.grey;
@@ -52,8 +58,35 @@ namespace DungeonGeneratorByBinarySpacePartitioning
             GenerateDungeon(rootNode, 0); //방 생성
             //GenerateRoad(rootNode, 0); //길 연결
             OnDrawAll();
+            
         }
+        private void Start()
+        {
+            //Invoke("GenerateNavmesh", 0.1f);
+            GenerateNavmesh();
+        }
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                GenerateNavmesh();
+            }
+        }
+        private void GenerateNavmesh()
+        {
 
+            
+            //_generatePos += new Vector3(50, 0, 50);
+
+            NavMeshSurface[] surfaces = plane.gameObject.GetComponentsInChildren<NavMeshSurface>();
+
+            foreach (var s in surfaces)
+            {
+                s.RemoveData();
+                s.BuildNavMesh();
+            }
+
+        }
         private void DivideTree(TreeNode treeNode, int n) //재귀 함수
         {
             if (n < maxNode) //0 부터 시작해서 노드의 최댓값에 이를 때 까지 반복
@@ -228,6 +261,7 @@ namespace DungeonGeneratorByBinarySpacePartitioning
         }
         private void OnDrawAll() //크기에 맞춰 타일을 생성하는 메소드
         {
+           
             for (int i = 0; i < mapSize.x; i++)
             {
                 for (int j = 0; j < mapSize.y; j++)
@@ -252,22 +286,23 @@ namespace DungeonGeneratorByBinarySpacePartitioning
                 {
                     if (caveMap[i, j] == 1)
                     {
-                        GameObject clone_cube = Instantiate(wall, new Vector3(i, 0, j), Quaternion.identity) as GameObject;
-                        clone_cube.transform.parent = transform;
+                        GameObject clone_cube = Instantiate(wall, new Vector3(i, 0f, j), Quaternion.identity) as GameObject;
+                        //clone_cube.transform.parent = plane.transform;
                     }
                     else if (caveMap[i, j] == 2)
                     {
                         GameObject clone_box = Instantiate(box, new Vector3(i, 0.5f, j), Quaternion.identity) as GameObject;
-                        //clone_box.transform.parent = transform;
+                        //clone_box.transform.parent = plane.transform;
                         //clone_box.GetComponent<MiniGameManager>().randomNum = Random.Range(0, 3);
                     }
                     else if (caveMap[i, j] == 3)
                     {
                         GameObject clone_hideout = Instantiate(hideout, new Vector3(i, 0f, j), Quaternion.identity) as GameObject;
-                        clone_hideout.transform.parent = transform;
+                        //clone_hideout.transform.parent = plane.transform;
                     }
                     
                 }
+            
 
         }
 

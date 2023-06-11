@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 public class AlphabetGame : MonoBehaviour
 {
-    private const int COUNT = 7;
+    private const int COUNT = 8;
     private const float TIME = 7f;
 
     private float timeLimit = TIME;     // 제한 시간
@@ -20,7 +20,7 @@ public class AlphabetGame : MonoBehaviour
     private Image bar;
 
     // 알파벳을 저장할 배열
-    private char[] alphabets = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+    private char[] alphabets = { 'E', 'F', 'Q', 'R', 'S', 'W','A','D' };
 
     //2023/05/14 장진혁추가
     PlayerControl player;
@@ -59,7 +59,7 @@ public class AlphabetGame : MonoBehaviour
         bar = gauge.transform.Find("Bar").GetComponent<Image>();
         for (int i = 0; i < COUNT; i++)
         {
-            keyPos[i] = new Vector2(-300 + 100 * i, 0f);
+            keyPos[i] = new Vector2(-350 + 100 * i, 0f);
         }       
         currentAlphabets = new char[COUNT+1];
         timeLeft = timeLimit;

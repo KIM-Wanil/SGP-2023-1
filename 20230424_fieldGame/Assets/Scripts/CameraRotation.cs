@@ -20,6 +20,7 @@ public class CameraRotation : MonoBehaviour
     private void Start()
     {
 
+
 	}
     void Update()
 	{
