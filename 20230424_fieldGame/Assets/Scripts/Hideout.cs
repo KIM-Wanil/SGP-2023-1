@@ -19,36 +19,13 @@ public class Hideout : MonoBehaviour
     {
         if (GameManager.instance.hide)
         {
-            //카메라 시점 전환
-            //Vector3 temp = transform.forward;
-            //Vector3 lookPos = new Vector3(0f, 0f, 0f);
-
-            //try { ghost = GameObject.FindWithTag("Ghost"); }
-            //catch
-            //{
-            //    ghost = null;
-            //    return;
-            //}
-
-            //if (ghost == null)
-            //{
-            //    lookPos = interactive.gameObject.transform.position - interactive.closestHideout.transform.position;
-            //    lookPos.y = 0;
-            //}
-            //else
-            //{
-            //    lookPos = ghost.transform.position - interactive.closestHideout.transform.position;
-            //    lookPos.y = 0;
-            //}
-            //transform.rotation = Quaternion.LookRotation(lookPos, Vector3.up);
-
             transform.position = interactive.closestHideout.gameObject.transform.position;
             GetComponent<CameraRotation>().enabled = true;
             interactive.gameObject.SetActive(false);
             hideimg.gameObject.SetActive(true);
 
             //은신처에서 탈출
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 GameManager.instance.hide = false;
                 hideimg.gameObject.SetActive(false);

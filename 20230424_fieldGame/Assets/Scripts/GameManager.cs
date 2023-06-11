@@ -28,7 +28,7 @@ public class GameManager : Singleton<GameManager>
         life = 3;
         jewelCount = 0;
         allJewelCount = 3;
-        spawnTime = 5f;
+        spawnTime = 20f;
         talismanCount = 1;
         hide = false;
         lanternOn = false;

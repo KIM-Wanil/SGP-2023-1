@@ -67,7 +67,7 @@ public class PlayerInteractive : MonoBehaviour
         var colliders = Physics.OverlapSphere(this.transform.position, interact_distance);
         foreach(Collider col in colliders)
         {
-            if(col.CompareTag("Box"))
+            if (col.CompareTag("Box"))
             {
                 if (Input.GetKeyDown(KeyCode.F) && !GameManager.instance.lanternOn)
                     GameManager.instance.explainBoxOpenRule();
@@ -76,15 +76,20 @@ public class PlayerInteractive : MonoBehaviour
                     col.transform.GetComponent<MiniGameManager>().RandomGameGenerate();
             }
 
-            else if(col.CompareTag("Hideout"))
+            else if (col.CompareTag("Hideout"))
             {
-                if (Input.GetKeyDown(KeyCode.F) && carriedJewel == null && closestJewel == null)
+                closestHideout = col.transform;
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    closestHideout = col.transform;
-                    GameManager.instance.hide = true;
+                    Invoke("TurnOnHide", 0.1f);
                 }
             }
         }
+    }
+
+    void TurnOnHide()
+    {
+        GameManager.instance.hide = true;
     }
     private void OnTriggerStay(Collider other)
     {
@@ -141,7 +146,7 @@ public class PlayerInteractive : MonoBehaviour
                 // 주목 중 아이템을 없앤다.
                 this.closestJewel = null;
             }
-            else
+            else if (carriedJewel != null)
             { // 들고 있는 아이템이 있을 경우.
               // 들고 있는 아이템을 약간(1.0f) 앞으로 이동시켜서.
                 if(!canOffer)
