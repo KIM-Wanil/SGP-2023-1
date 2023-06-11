@@ -20,9 +20,9 @@ public class GhostAI : MonoBehaviour
         heartBeat.Play();
 
         //보석 갯수에 따른 귀신 스피드 조절
-        if (GameManager.instance.jewelCount == 0) nav.speed = 3.0f;
+        if (GameManager.instance.jewelCount == 0) nav.speed = 3.2f;
         else if (GameManager.instance.jewelCount == 1) nav.speed = 3.5f;
-        else if (GameManager.instance.jewelCount == 2) nav.speed = 4.0f;
+        else if (GameManager.instance.jewelCount == 2) nav.speed = 3.8f;
         else nav.speed = 3.0f;
         StartChase();
     }
@@ -50,13 +50,13 @@ public class GhostAI : MonoBehaviour
             player = GameObject.Find("Player");
             if (player != null && this.gameObject.activeSelf)
             {
-                if (nav.destination != player.transform.position)
+                if (nav.destination != player.transform.position && !nav.pathPending)
                 {
-                    nav.isStopped = false;
+                    //nav.isStopped = false;
                     nav.SetDestination(player.transform.position);
                 }
             }
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 

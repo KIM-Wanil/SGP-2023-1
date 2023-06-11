@@ -46,12 +46,12 @@ public class GhostSpawner : MonoBehaviour
     }
     public Vector3 SetPosition()
     {
-        float len = 10f;
+        float len = 7f;
         Vector3 playerPos = player.transform.position;
         playerPos.y = 0f;
         float angle;
         Vector3 spawnPos;
-        if (playerPos.x > 15 && playerPos.x < 35 && playerPos.z > 15 && playerPos.z < 35)
+        if (playerPos.x > 10 && playerPos.x < 40 && playerPos.z > 10 && playerPos.z < 40)
         {
             angle = Random.Range(0f, Mathf.PI * 2);
             spawnPos = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * len;
