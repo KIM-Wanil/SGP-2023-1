@@ -17,6 +17,7 @@ public class PlayerInteractive : MonoBehaviour
     bool canOffer = false; 
     [SerializeField]float interact_distance;
     public Transform closestHideout;
+    public bool gameGenerating = false;
     //20230515 ±Ëøœ¿œ√ﬂ∞°
     
     void Start()
@@ -73,7 +74,11 @@ public class PlayerInteractive : MonoBehaviour
                     GameManager.instance.explainBoxOpenRule();
 
                 if (Input.GetKeyDown(KeyCode.F) && !GameManager.instance.hide && GameManager.instance.lanternOn && !GameManager.instance.usedEscape)
-                    col.transform.GetComponent<MiniGameManager>().RandomGameGenerate();
+                {
+                    Invoke("gameGenerate", 0.1f);
+                    if(gameGenerating)
+                        col.transform.GetComponent<MiniGameManager>().RandomGameGenerate();
+                }
             }
 
             else if (col.CompareTag("Hideout"))
@@ -85,6 +90,11 @@ public class PlayerInteractive : MonoBehaviour
                 }
             }
         }
+    }
+
+    void gameGenerate()
+    {
+        gameGenerating = true;
     }
 
     void TurnOnHide()

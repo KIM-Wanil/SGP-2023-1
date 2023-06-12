@@ -70,7 +70,8 @@ public class GhostAI : MonoBehaviour
             {
                 carriedJewel.transform.localPosition = Vector3.forward * 1.0f;
                 carriedJewel.transform.parent = null;// 자식 설정을 해제.
-                carriedJewel = null; // 들고 있던 아이템을 없앤다.
+                //carriedJewel = null; // 들고 있던 아이템을 없앤다.
+                collision.collider.gameObject.transform.GetComponent<PlayerInteractive>().carriedJewel = null;
             }
             collision.collider.gameObject.GetComponent<AudioSource>().Play();
             collision.collider.gameObject.transform.GetComponent<PlayerControl>().lattern.gameObject.SetActive(false);

@@ -165,6 +165,8 @@ public class LightGame : MonoBehaviour
         //2023/05/14 장진혁추가
         player.isActionProgress = false;
         GameManager.instance.dead = false;
+        interactive.gameGenerating = false;
+
         uiManager.explainText.text = "";
 
         foreach (GameObject key in bulbs)
@@ -202,6 +204,8 @@ public class LightGame : MonoBehaviour
         //2023/05/14 장진혁추가
         player.isActionProgress = false;
         interactive.gameClear = true;
+        interactive.gameGenerating = false;
+
         uiManager.explainText.text = "";
 
         foreach (GameObject bulb in bulbs)

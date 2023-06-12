@@ -28,6 +28,7 @@ public class MiniGameManager : MonoBehaviour
     public void RandomGameGenerate()
     {
         player.isActionProgress = true;
+        //interactive.gameGenerating = false;
         GameManager.instance.playMinigame = true;
         randomNum = Random.Range(0, 3);
 
