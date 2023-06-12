@@ -12,7 +12,7 @@ public class PlayerInteractive : MonoBehaviour
     PlayerControl player;
 
     GameObject closestJewel = null;
-    GameObject carriedJewel = null;
+    public GameObject carriedJewel = null;
     GameObject ghost;
     bool canOffer = false; 
     [SerializeField]float interact_distance;
@@ -142,7 +142,7 @@ public class PlayerInteractive : MonoBehaviour
                 // 들고 있는 아이템을 자신의 자식으로 설정.
                 this.carriedJewel.transform.parent = this.transform;
                 // 2.0f 위에 배치(머리 위로 이동).
-                this.carriedJewel.transform.localPosition = Vector3.up * 2.0f;
+                this.carriedJewel.transform.localPosition = Vector3.up * 3.0f;
                 // 주목 중 아이템을 없앤다.
                 this.closestJewel = null;
             }

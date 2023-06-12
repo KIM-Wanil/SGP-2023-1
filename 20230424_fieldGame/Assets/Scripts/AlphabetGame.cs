@@ -4,7 +4,7 @@ using TMPro;
 public class AlphabetGame : MonoBehaviour
 {
     private const int COUNT = 8;
-    private const float TIME = 7f;
+    private const float TIME = 5f;
 
     private float timeLimit = TIME;     // 제한 시간
     //public AudioClip correctSound;  // 올바른 입력 소리

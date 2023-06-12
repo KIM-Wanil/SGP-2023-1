@@ -62,13 +62,26 @@ public class GhostAI : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+
         if (collision.collider.CompareTag("Player"))
         {
+            GameObject carriedJewel = collision.collider.gameObject.transform.GetComponent<PlayerInteractive>().carriedJewel;
+            if (carriedJewel != null)
+            {
+                carriedJewel.transform.localPosition = Vector3.forward * 1.0f;
+                carriedJewel.transform.parent = null;// 자식 설정을 해제.
+                carriedJewel = null; // 들고 있던 아이템을 없앤다.
+            }
             collision.collider.gameObject.GetComponent<AudioSource>().Play();
-            collision.collider.gameObject.transform.Find("Lantern").gameObject.SetActive(false);
+            collision.collider.gameObject.transform.GetComponent<PlayerControl>().lattern.gameObject.SetActive(false);
+            
             GameManager.instance.dead = true;
             GameManager.instance.lostLife();
             collision.collider.gameObject.transform.position = new Vector3(23f, 1f, 23f);
+            
+            
+            
+
             Destroy(this.gameObject);
         }
     }

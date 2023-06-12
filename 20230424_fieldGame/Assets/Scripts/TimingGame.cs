@@ -4,7 +4,7 @@ using TMPro;
 public class TimingGame : MonoBehaviour
 {
 
-    private const float TIME = 7f;
+    private const float TIME = 5f;
     private const int COUNT = 3;
     private float speed = 300f;
     private int score = 0;

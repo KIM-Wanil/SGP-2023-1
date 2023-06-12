@@ -9,7 +9,7 @@ public class GameManager : Singleton<GameManager>
     public int life { get; set; } = 3;
     public int jewelCount { get; set; } = 0;
     public int allJewelCount { get; set; } = 3;
-    public float spawnTime { get; set; } = 5f;
+    public float spawnTime { get; set; } = 25f;
     public int talismanCount { get; set; } = 1;
 
     public bool hide;
@@ -28,7 +28,7 @@ public class GameManager : Singleton<GameManager>
         life = 3;
         jewelCount = 0;
         allJewelCount = 3;
-        spawnTime = 20f;
+        spawnTime = 25f;
         talismanCount = 1;
         hide = false;
         lanternOn = false;

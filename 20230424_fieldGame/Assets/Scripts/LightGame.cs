@@ -5,7 +5,7 @@ public class LightGame : MonoBehaviour
 {
     private const int COUNT_X = 4;
     private const int COUNT_Y = 4;
-    private const float TIME = 10f;
+    private const float TIME = 7f;
 
     private float timeLimit = TIME;     // 제한 시간
     //public AudioClip correctSound;  // 올바른 입력 소리
@@ -83,7 +83,7 @@ public class LightGame : MonoBehaviour
         }
         timeLeft = timeLimit;
         SetGame();
-        Invoke("StartGame", 2f);
+        Invoke("StartGame", 1f);
 
         //2023/05/14 장진혁추가
         player = GameObject.Find("Player").GetComponent<PlayerControl>();

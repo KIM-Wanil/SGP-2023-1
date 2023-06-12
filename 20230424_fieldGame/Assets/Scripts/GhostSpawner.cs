@@ -23,7 +23,7 @@ public class GhostSpawner : MonoBehaviour
     {
         if (ghost!=null) return;
         if (GameManager.instance.lanternOn)
-            spawnTimeLeft -= 2.0f * Time.deltaTime;
+            spawnTimeLeft -= 1.5f * Time.deltaTime;
         else
             spawnTimeLeft -= Time.deltaTime;
 
